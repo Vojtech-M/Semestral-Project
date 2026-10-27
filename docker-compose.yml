@@ -1,29 +1,21 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: robosoutez_db
-    environment:
-      POSTGRES_DB: robosoutez
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: heslo
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
   app:
     build: .
     container_name: robosoutez_app
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/robosoutez
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=heslo
-    depends_on:
-      - postgres
+      - SPRING_DATASOURCE_URL=jdbc:h2:file:/data/robosoutez;AUTO_SERVER=TRUE
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=
+      # Optional: Enable H2 Web Console to view your database in the browser at http://localhost:8080/h2-console
+      - SPRING_H2_CONSOLE_ENABLED=true
+      - SPRING_H2_CONSOLE_PATH=/h2-console
+    volumes:
+      - h2data:/data
 
 volumes:
-  pgdata:
+  h2data:

@@ -17,4 +17,14 @@ public class HomeController {
         // Vrátí název HTML šablony (index.html)
         return "index";
     }
+
+    @PostMapping("/register")
+    public String processForm(@ModelAttribute RegistrationFormDto registrationForm, Model model) {
+        // Tady si zatím můžeš data vypsat do konzole, abys ověřil, že dorazila
+        System.out.println("Přijatá škola: " + registrationForm.getSchoolName());
+        System.out.println("Přijatý tým: " + registrationForm.getTeamName());
+
+        // Přesměrování na nějakou potvrzovací stránku nebo zpět
+        return "redirect:/";
+    }
 }

@@ -10,6 +10,15 @@
     </style>
 </head>
 <body>
+
+
+<form action="#" th:action="@{/register}" th:object="${registrationForm}" method="post">
+    <!-- Výběr školy, názvy týmů, kontakty -->
+    <input type="text"  placeholder="Název školy" />
+    <input type="text"  placeholder="Název týmu" />
+    <!-- Tlačítko pro odeslání -->
+    <button type="submit">Odeslat přihlášku</button>
+</form>
 <div class="box">
     <!-- Tady vypíšeme proměnnou z Java controlleru -->
     <h1 th:text="${nazev}">Nadpis</h1>

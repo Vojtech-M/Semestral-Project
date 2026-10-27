@@ -2,6 +2,10 @@
 FROM gradle:8.5-jdk21 AS builder
 WORKDIR /app
 COPY . .
+
+# Přidání práva pro spuštění souboru gradlew (oprava chyby Permission denied)
+RUN chmod +x gradlew
+
 RUN ./gradlew bootJar --no-daemon
 
 # 2. Krok: Spuštění hotové aplikace přes Java 21 JRE

@@ -1,4 +1,4 @@
-package cz.cvut.fel.semestral_project;
+package cz.cvut.fel.semestral_project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

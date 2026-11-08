@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cz.cvut.fel.semestral_project.SemestralProjectApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T11:07:01.486Z" hostname="vojtech-macbook-air-3.home" time="2.511">
+  <properties/>
+  <testcase name="contextLoads()" classname="cz.cvut.fel.semestral_project.SemestralProjectApplicationTests" time="0.283"/>
+  <system-out><![CDATA[12:07:01.565 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cz.cvut.fel.semestral_project.SemestralProjectApplicationTests]: SemestralProjectApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:07:01.619 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration cz.cvut.fel.semestral_project.SemestralProjectApplication for test class cz.cvut.fel.semestral_project.SemestralProjectApplicationTests
+12:07:01.655 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [cz.cvut.fel.semestral_project.SemestralProjectApplicationTests]: SemestralProjectApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:07:01.656 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration cz.cvut.fel.semestral_project.SemestralProjectApplication for test class cz.cvut.fel.semestral_project.SemestralProjectApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-08T12:07:01.793+01:00  INFO 86186 --- [    Test worker] c.c.f.s.SemestralProjectApplicationTests : Starting SemestralProjectApplicationTests using Java 21.0.6 with PID 86186 (started by vojta in /Users/vojta/Bakalarska/repo)
+2026-11-08T12:07:01.794+01:00  INFO 86186 --- [    Test worker] c.c.f.s.SemestralProjectApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2026-11-08T12:07:02.054+01:00  INFO 86186 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-08T12:07:02.078+01:00  INFO 86186 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 2 JPA repository interfaces.
+2026-11-08T12:07:02.264+01:00  INFO 86186 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-11-08T12:07:02.289+01:00  INFO 86186 --- [    Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.13.Final
+2026-11-08T12:07:02.499+01:00  INFO 86186 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-08T12:07:02.513+01:00  INFO 86186 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-08T12:07:02.594+01:00  INFO 86186 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-11-08T12:07:02.595+01:00  INFO 86186 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-08T12:07:02.607+01:00  WARN 86186 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-11-08T12:07:02.624+01:00  INFO 86186 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:testdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: TESTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-08T12:07:03.182+01:00  INFO 86186 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists registrations cascade 
+Hibernate: drop table if exists schools cascade 
+Hibernate: drop table if exists teachers cascade 
+Hibernate: drop table if exists team_members cascade 
+Hibernate: drop table if exists teams cascade 
+Hibernate: create table registrations (id bigint generated by default as identity, team_id bigint, school_address varchar(255), school_city varchar(255), school_name varchar(255), school_web varchar(255), school_zip varchar(255), team_name varchar(255), primary key (id))
+Hibernate: create table schools (approved boolean not null, id bigint generated by default as identity, adress varchar(255), city varchar(255), name varchar(255), website varchar(255), zip_code varchar(255), approval_status enum ('BOTH','HIGH','PRIMARY'), primary key (id))
+Hibernate: create table teachers (id bigint generated by default as identity, school_id bigint, primary key (id))
+Hibernate: create table team_members (id bigint generated by default as identity, team_id bigint, user_name varchar(255), primary key (id))
+Hibernate: create table teams (id bigint generated by default as identity, school_id bigint, teacher_id bigint, name varchar(24), teacher_name varchar(255), t_shirt_size enum ('SHIRT_SIZE_L','SHIRT_SIZE_M','SHIRT_SIZE_S','SHIRT_SIZE_XL','SHIRT_SIZE_XXL'), primary key (id))
+Hibernate: alter table if exists registrations add constraint FKsxcvtcdb5tcexgw094qtc5idt foreign key (team_id) references teams
+Hibernate: alter table if exists teachers add constraint FK25tvrvw3ww2p7mbt62abrbwev foreign key (school_id) references schools
+Hibernate: alter table if exists team_members add constraint FKtgca08el3ofisywcf11f0f76t foreign key (team_id) references teams
+Hibernate: alter table if exists teams add constraint FKmn3mtlda87qqah1xly78yvbom foreign key (school_id) references schools
+Hibernate: alter table if exists teams add constraint FKiexam6ecnc4drf7gdkdolym6c foreign key (teacher_id) references teachers
+2026-11-08T12:07:03.244+01:00  INFO 86186 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-08T12:07:03.305+01:00  INFO 86186 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-08T12:07:03.438+01:00  WARN 86186 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-08T12:07:03.451+01:00  INFO 86186 --- [    Test worker] o.s.b.w.a.WelcomePageHandlerMapping      : Adding welcome page template: index
+2026-11-08T12:07:03.707+01:00  INFO 86186 --- [    Test worker] c.c.f.s.SemestralProjectApplicationTests : Started SemestralProjectApplicationTests in 2.011 seconds (process running for 2.644)
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/Users/vojta/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.18.15/de6980bb799c25bb1fe9e6c434201299cb5e694e/byte-buddy-agent-1.18.15.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

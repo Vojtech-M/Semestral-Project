@@ -16,4 +16,10 @@ public class Registration {
     @JoinColumn(name = "team_id")
     private Team team;
 
+    private String schoolName;
+    private String schoolAddress;
+    private String schoolCity;
+    private String schoolZip;
+    private String schoolWeb;
+    private String teamName;
 }

@@ -1,0 +1,10 @@
+option skill-path "$HOME/.config/crush/skills"
+
+mcp add google-workspace \
+  --type stdio \
+  --command "/Users/vojta/.nvm/versions/node/v24.11.1/bin/npx" \
+  --args "-y mcp-server-google-workspace" \
+  --env GOOGLE_CLIENT_ID "$GOOGLE_CLIENT_ID" \
+  --env GOOGLE_CLIENT_SECRET "$GOOGLE_CLIENT_SECRET" \
+  --env GOOGLE_REFRESH_TOKEN "$GOOGLE_REFRESH_TOKEN" \
+  --timeout 120

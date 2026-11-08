@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Robosoutěž - Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        h1 { color: #d9534f; }
+        .box { background: white; padding: 20px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+
+<form action="#" th:action="@{/register}" th:object="${registrationForm}" method="post">
+    <!-- Výběr školy, názvy týmů, kontakty -->
+    <input type="text" th:field="*{schoolName}" placeholder="Název školy" />
+    <input type="text" th:field="*{schoolAddress}" placeholder="Adresa školy" />
+    <input type="text" th:field="*{schoolCity}" placeholder="Město" />
+    <input type="text" th:field="*{schoolZip}" placeholder="PSČ" />
+    <input type="text" th:field="*{schoolWeb}" placeholder="Web" />
+    <input type="text" th:field="*{teamName}" placeholder="Název týmu" />
+    <!-- Tlačítko pro odeslání -->
+    <button type="submit">Odeslat přihlášku</button>
+</form>
+
+<h2>Přihlášené týmy</h2>
+<table border="1">
+    <tr>
+        <th>Škola</th>
+        <th>Tým</th>
+        <th>Město</th>
+    </tr>
+    <tr th:each="reg : ${registrations}">
+        <td th:text="${reg.schoolName}">Škola</td>
+        <td th:text="${reg.teamName}">Tým</td>
+        <td th:text="${reg.schoolCity}">Město</td>
+    </tr>
+</table>
+
+<div class="box">
+    <!-- Tady vypíšeme proměnnou z Java controlleru -->
+    <h1 th:text="${nazev}">Nadpis</h1>
+    <p>Tohle je technické demo běžící v Jave 21 uvnitř Dockeru!</p>
+    <hr>
+    <p><b>Stav databáze:</b> Připojeno k PostgreSQL (připraveno na tabulky škol a týmů).</p>
+</div>
+</body>
+</html>

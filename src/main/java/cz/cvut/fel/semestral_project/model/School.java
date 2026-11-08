@@ -9,11 +9,7 @@ import cz.cvut.fel.semestral_project.model.enums.SchoolLevel;
 @Entity
 @Table(name = "schools")
 @Data
-public class School {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class School extends BaseEntity {
 
     private String name;
     private String city;

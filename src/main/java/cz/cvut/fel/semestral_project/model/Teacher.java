@@ -6,11 +6,7 @@ import lombok.Data;
 @Entity // <-- Add this annotation
 @Table(name = "teachers")
 @Data
-public class Teacher {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Teacher extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "school_id")

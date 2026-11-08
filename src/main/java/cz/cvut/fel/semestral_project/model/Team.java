@@ -8,11 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "teams")
 @Data
-public class Team {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Team extends BaseEntity {
 
     @Column(length = 24)
     private String name;

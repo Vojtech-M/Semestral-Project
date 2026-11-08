@@ -5,11 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "team_members")
-public class TeamMember {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TeamMember extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "team_id")
@@ -24,14 +20,6 @@ public class TeamMember {
     public TeamMember(Team team, String userName) {
         this.team = team;
         this.userName = userName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Team getTeam() {
@@ -49,6 +37,7 @@ public class TeamMember {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
 
 
 }

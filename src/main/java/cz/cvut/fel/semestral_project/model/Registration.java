@@ -6,11 +6,7 @@ import lombok.Data;
 @Entity
 @Table(name = "registrations") // Optional, specifies table name
 @Data
-public class Registration {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Registration extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "team_id")

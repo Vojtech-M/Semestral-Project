@@ -1,4 +1,4 @@
-package cz.cvut.fel.semestral_project;
+package cz.cvut.fel.semestral_project.controller;
 
 import cz.cvut.fel.semestral_project.dto.RegistrationFormDto;
 import cz.cvut.fel.semestral_project.service.RegistrationService;
@@ -17,7 +17,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("nazev", "ROBOSOUTĚŽ - Přihlašovací formulář (Demo)");
+        model.addAttribute("nazev", "ROBOSOUTĚŽ - Přihlašovací formulář");
         model.addAttribute("registrationForm", new RegistrationFormDto());
         model.addAttribute("registrations", registrationService.getAllRegistrations());
         return "index";

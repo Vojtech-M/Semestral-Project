@@ -1,8 +1,11 @@
 package cz.cvut.fel.semestral_project.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.cvut.fel.semestral_project.model.enums.TShirtSize;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,5 +33,6 @@ public class Team extends BaseEntity {
     private List<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "team")
-    private List<Registration> registrations;
+    @JsonManagedReference // Prevents infinite recursion in JSON
+    private List<Registration> registrations = new ArrayList<>();
 }

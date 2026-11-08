@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7967d459-18d1-4e28-ae55-2428ec6fc673" name="Changes" comment="Add generic dao and base">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/TeamDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/TournamentTermDao.java" afterDir="false" />
+    <list default="true" id="7967d459-18d1-4e28-ae55-2428ec6fc673" name="Changes" comment="Add Data Inicializer">
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/fileHashes.bin" afterDir="false" />
@@ -14,24 +12,12 @@
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/dao/SchoolRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/dao/SchoolRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/dao/TeamRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/Registration.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/Registration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/contextLoads().html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/contextLoads().html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-cz.cvut.fel.semestral_project.SemestralProjectApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-cz.cvut.fel.semestral_project.SemestralProjectApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output-events.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output-events.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results-generic.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results-generic.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/HomeController.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/service/RegistrationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/service/RegistrationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/SchoolRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/SchoolRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/TeamRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Registration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Registration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Team.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/service/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/service/RegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,7 +299,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794138006833</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add Data Inicializer">
+      <option name="closed" value="true" />
+      <created>1794171639410</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1794171639410</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +334,8 @@
     <MESSAGE value="Add Repositories and RegistrationService" />
     <MESSAGE value="Add more fields into the form" />
     <MESSAGE value="Add generic dao and base" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add generic dao and base" />
+    <MESSAGE value="Add Data Inicializer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Data Inicializer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

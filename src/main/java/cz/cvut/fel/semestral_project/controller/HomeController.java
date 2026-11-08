@@ -23,8 +23,8 @@ public class HomeController {
         return "index";
     }
 
-    @PostMapping("/register")
-    public String processForm(@ModelAttribute RegistrationFormDto registrationForm, Model model) {
+    @PostMapping("/")
+    public String processForm(@ModelAttribute RegistrationFormDto registrationForm) {
         registrationService.registerTeam(registrationForm);
         return "redirect:/";
     }

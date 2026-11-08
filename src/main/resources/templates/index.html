@@ -100,8 +100,8 @@
 <div class="container">
     <h1 th:text="${nazev}">ROBOSOUTĚŽ</h1>
     <p>Vyplňte formulář pro registraci školy a týmu.</p>
-    
-    <form action="#" th:action="@{/register}" th:object="${registrationForm}" method="post">
+
+    <form th:object="${registrationForm}" method="post">
         <input type="text" th:field="*{schoolName}" placeholder="Název školy" required />
         <input type="text" th:field="*{schoolAddress}" placeholder="Adresa školy" required />
         <input type="text" th:field="*{schoolCity}" placeholder="Město" required />

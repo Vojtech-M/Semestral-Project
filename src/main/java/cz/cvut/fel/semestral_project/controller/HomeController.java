@@ -1,31 +1,23 @@
 package cz.cvut.fel.semestral_project.controller;
 
-import cz.cvut.fel.semestral_project.dto.RegistrationFormDto;
+import cz.cvut.fel.semestral_project.model.Registration;
 import cz.cvut.fel.semestral_project.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/home")
 public class HomeController {
 
     @Autowired
     private RegistrationService registrationService;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("nazev", "ROBOSOUTĚŽ - Přihlašovací formulář");
-        model.addAttribute("registrationForm", new RegistrationFormDto());
-        model.addAttribute("registrations", registrationService.getAllRegistrations());
-        return "index";
-    }
-
-    @PostMapping("/")
-    public String processForm(@ModelAttribute RegistrationFormDto registrationForm) {
-        registrationService.registerTeam(registrationForm);
-        return "redirect:/";
+    @GetMapping
+    public List<Registration> getRegistrations() {
+        return registrationService.getAllRegistrations();
     }
 }

@@ -6,14 +6,13 @@ import cz.cvut.fel.semestral_project.dto.SchoolDto;
 import cz.cvut.fel.semestral_project.model.School;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/schools") // nebo jak máš nastavený endpoint
+@RequestMapping("/api/schools")
+@CrossOrigin(origins = "http://localhost:5173")
 public class SchoolApiController {
 
     @Autowired

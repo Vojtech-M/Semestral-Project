@@ -14,4 +14,12 @@ public class TeamDao {
     public void persist(Team team) {
         entityManager.persist(team);
     }
+
+    public Team find(Long id) {
+        return entityManager.find(Team.class, id);
+    }
+
+    public java.util.List<Team> findAll() {
+        return entityManager.createQuery("SELECT t FROM Team t", Team.class).getResultList();
+    }
 }

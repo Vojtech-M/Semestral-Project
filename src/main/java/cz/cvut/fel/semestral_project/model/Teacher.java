@@ -2,8 +2,12 @@ package cz.cvut.fel.semestral_project.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity // <-- Add this annotation
+@Getter
+@Setter
+@Entity
 @Table(name = "teachers")
 public class Teacher extends BaseEntity {
 

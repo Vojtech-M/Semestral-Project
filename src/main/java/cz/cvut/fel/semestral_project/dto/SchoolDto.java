@@ -1,5 +1,6 @@
 package cz.cvut.fel.semestral_project.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class SchoolDto {
     private Long id;
+
+    @NotBlank(message = "School name is required")
     private String name;
     private String city;
     private String adress;

@@ -18,4 +18,8 @@ public class TournamentTermDao {
     public void persist(TournamentTerm term) {
         entityManager.persist(term);
     }
+
+    public TournamentTerm find(Long id) {
+        return entityManager.find(TournamentTerm.class, id);
+    }
 }

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Main-Class: org.springframework.boot.loader.launch.JarLauncher
-Start-Class: cz.cvut.fel.semestral_project.SemestralProjectApplication
+Start-Class: cz.cvut.fel.semestral_project.RobosoutezApplication
 Spring-Boot-Version: 4.1.2
 Spring-Boot-Classes: BOOT-INF/classes/
 Spring-Boot-Lib: BOOT-INF/lib/

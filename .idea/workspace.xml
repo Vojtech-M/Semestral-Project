@@ -4,48 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7967d459-18d1-4e28-ae55-2428ec6fc673" name="Changes" comment="App API endpoint for students and teams">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/TeacherDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dao/TeamMemberDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/rest/TeacherApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/rest/TeamApiController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/rest/TeamMemberApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/checksums/checksums.lock" afterDir="false" />
+    <list default="true" id="7967d459-18d1-4e28-ae55-2428ec6fc673" name="Changes" comment="Better Data inicialization and api/teams">
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.8.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/config/DataInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/config/DataInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/dto/RegistrationFormDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/dto/RegistrationFormDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/Registration.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/Registration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/Teacher.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/Teacher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/TournamentTerm.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/model/TournamentTerm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/rest/RegistrationRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/rest/RegistrationRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/service/RegistrationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cz/cvut/fel/semestral_project/service/RegistrationService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/Semestral_project-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/Semestral_project-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/contextLoads().html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/contextLoads().html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/cz.cvut.fel.semestral_project.SemestralProjectApplicationTests/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-cz.cvut.fel.semestral_project.SemestralProjectApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-cz.cvut.fel.semestral_project.SemestralProjectApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output-events.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output-events.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results-generic.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results-generic.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/bootJar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/bootJar/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/config/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/config/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dto/RegistrationFormDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dto/RegistrationFormDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dto/TeamDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/dto/TeamDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Registration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Registration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/Teacher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/TournamentTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/model/TournamentTerm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/rest/RegistrationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/rest/RegistrationRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/service/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/cvut/fel/semestral_project/service/RegistrationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -410,7 +378,15 @@
       <option name="project" value="LOCAL" />
       <updated>1794229942383</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Better Data inicialization and api/teams">
+      <option name="closed" value="true" />
+      <created>1794246856375</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1794246856375</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,7 +419,8 @@
     <MESSAGE value="Add Front end folder with React" />
     <MESSAGE value="Frontend based on HTML a Typescript, visual from prototype and fetching of API" />
     <MESSAGE value="App API endpoint for students and teams" />
-    <option name="LAST_COMMIT_MESSAGE" value="App API endpoint for students and teams" />
+    <MESSAGE value="Better Data inicialization and api/teams" />
+    <option name="LAST_COMMIT_MESSAGE" value="Better Data inicialization and api/teams" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

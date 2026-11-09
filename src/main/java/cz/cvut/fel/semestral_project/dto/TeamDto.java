@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,4 +16,6 @@ public class TeamDto {
     private String tShirtSize;
     private Long schoolId;
     private Long teacherId;
+    private List<TeamMemberDto> teamMembers;
 }
+

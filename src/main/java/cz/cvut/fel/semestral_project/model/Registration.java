@@ -28,6 +28,9 @@ public class Registration extends BaseEntity {
     private String schoolZip;
     private String schoolWeb;
     private String teamName;
+    private String teacherName;
+    private String teacherEmail;
+    private String teacherPhone;
     @Setter
     @ManyToOne
     @JoinColumn(name = "tournament_term_id")
@@ -36,5 +39,6 @@ public class Registration extends BaseEntity {
     private RegistrationStatus status;
     @Setter
     private LocalDateTime registeredAt;
+
 
 }

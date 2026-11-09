@@ -39,7 +39,30 @@
                         <label for="teamName">Název týmu:</label>
                         <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
                     </div>
+
+                    <div class="field">
+                        <label for="teacherName">Jméno učitele / kontaktní osoba:</label>
+                        <input type="text" id="teacherName" placeholder="např. Jan Novák" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="teacherEmail">E-mail učitele:</label>
+                        <input type="email" id="teacherEmail" placeholder="ucitel@skola.cz" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="teacherPhone">Telefon učitele:</label>
+                        <input type="tel" id="teacherPhone" placeholder="+420 123 456 789">
+                    </div>
                     
+                    <div class="field">
+                        <label>Členové týmu (4 členové):</label>
+                        <input type="text" id="member1" placeholder="Člen 1" required style="margin-bottom: 6px;">
+                        <input type="text" id="member2" placeholder="Člen 2" required style="margin-bottom: 6px;">
+                        <input type="text" id="member3" placeholder="Člen 3" required style="margin-bottom: 6px;">
+                        <input type="text" id="member4" placeholder="Člen 4" required>
+                    </div>
+
                     <div class="field">
                         <label for="termSelect">Termín turnaje:</label>
                         <select id="termSelect">
@@ -57,15 +80,20 @@
         <!-- Sekce 2: Seznam registrací -->
         <section id="section-regs" class="app-section" style="display:none;">
             <div class="card wide">
-                <h2>Seznam registrací (/api/registrations)</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2>Seznam registrací (/api/registrations)</h2>
+                    <a href="http://localhost:8080/api/registrations/export/excel" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem; font-size: 0.9rem;" target="_blank">Export do Excelu (.xlsx)</a>
+                </div>
                 <table id="regTable">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Tým</th>
                             <th>Škola</th>
+                            <th>Učitel</th>
                             <th>Status</th>
                             <th>Datum</th>
+                            <th>Akce</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

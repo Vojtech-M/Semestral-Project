@@ -39,6 +39,10 @@ dependencies {
 
 	// H2 databáze pro lokální vývoj a testování
 	runtimeOnly 'com.h2database:h2'
+
+	// Apache POI pro export do Excelu (.xlsx)
+	implementation 'org.apache.poi:poi:5.2.5'
+	implementation 'org.apache.poi:poi-ooxml:5.2.5'
 }
 
 tasks.named('test') {

@@ -30,6 +30,9 @@ public class RegistrationService {
     private TeamDao teamDao;
 
     @Autowired
+    private cz.cvut.fel.semestral_project.dao.TeamMemberDao teamMemberDao;
+
+    @Autowired
     private TournamentTermDao tournamentTermDao;
 
     @Transactional
@@ -54,7 +57,17 @@ public class RegistrationService {
         Team team = new Team();
         team.setName(dto.getTeamName());
         team.setSchool(school);
+        team.setTeacherName(dto.getTeacherName());
         teamDao.persist(team);
+
+        if (dto.getTeamMembers() != null) {
+            for (String memberName : dto.getTeamMembers()) {
+                if (memberName != null && !memberName.trim().isEmpty()) {
+                    cz.cvut.fel.semestral_project.model.TeamMember member = new cz.cvut.fel.semestral_project.model.TeamMember(team, memberName.trim());
+                    teamMemberDao.persist(member);
+                }
+            }
+        }
 
         Registration reg = new Registration();
         reg.setTeam(team);
@@ -74,6 +87,9 @@ public class RegistrationService {
         reg.setSchoolZip(school.getZipCode());
         reg.setSchoolWeb(school.getWebsite());
         reg.setTeamName(team.getName());
+        reg.setTeacherName(dto.getTeacherName());
+        reg.setTeacherEmail(dto.getTeacherEmail());
+        reg.setTeacherPhone(dto.getTeacherPhone());
 
         registrationDao.persist(reg);
     }
@@ -81,5 +97,28 @@ public class RegistrationService {
     @Transactional
     public List<Registration> getAllRegistrations() {
         return registrationDao.findAll();
+    }
+
+    @Transactional
+    public Registration getRegistrationById(Long id) {
+        return registrationDao.findById(id);
+    }
+
+    @Transactional
+    public Registration updateStatus(Long id, RegistrationStatus status) {
+        Registration reg = registrationDao.findById(id);
+        if (reg != null) {
+            reg.setStatus(status);
+            registrationDao.update(reg);
+        }
+        return reg;
+    }
+
+    @Transactional
+    public void deleteRegistration(Long id) {
+        Registration reg = registrationDao.findById(id);
+        if (reg != null) {
+            registrationDao.remove(reg);
+        }
     }
 }

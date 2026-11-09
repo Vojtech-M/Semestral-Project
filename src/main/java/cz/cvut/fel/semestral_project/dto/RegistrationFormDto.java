@@ -1,6 +1,7 @@
 package cz.cvut.fel.semestral_project.dto;
 
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class RegistrationFormDto {
@@ -12,4 +13,9 @@ public class RegistrationFormDto {
     private String schoolWeb;
     private String teamName;
     private Long tournamentTermId;
+    private String teacherName;
+    private String teacherEmail;
+    private String teacherPhone;
+    private List<String> teamMembers;
 }
+

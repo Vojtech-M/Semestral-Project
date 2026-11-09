@@ -1,6 +1,8 @@
 package cz.cvut.fel.semestral_project.rest;
 
 import cz.cvut.fel.semestral_project.dao.SchoolDao;
+import cz.cvut.fel.semestral_project.dao.SchoolRepository;
+import cz.cvut.fel.semestral_project.dto.SchoolDto;
 import cz.cvut.fel.semestral_project.model.School;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/schools")
-public class SchoolRestController {
+@RequestMapping("/api/schools") // nebo jak máš nastavený endpoint
+public class SchoolApiController {
 
     @Autowired
-    private SchoolDao schoolDao;
+    private SchoolRepository schoolRepository; // případně SchoolService
 
     @GetMapping
-    public ResponseEntity<List<School>> getAllSchools() {
-        return ResponseEntity.ok(schoolDao.findAll());
+    public List<SchoolDto> getAllSchools() {
+        return schoolRepository.findAll()
+                .stream()
+                .map(SchoolDto::new)
+                .toList();
     }
 }

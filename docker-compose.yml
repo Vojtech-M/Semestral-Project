@@ -11,11 +11,24 @@ services:
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.h2.Driver
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=
-      # Optional: Enable H2 Web Console to view your database in the browser at http://localhost:8080/h2-console
       - SPRING_H2_CONSOLE_ENABLED=true
       - SPRING_H2_CONSOLE_PATH=/h2-console
     volumes:
       - h2data:/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: robosoutez_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/src:/app/src
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - app
 
 volumes:
   h2data:

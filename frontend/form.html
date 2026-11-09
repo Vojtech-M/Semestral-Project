@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robosoutěž - Formulář</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <p><a href="index.html">&larr; Zpět na hlavní stránku</a></p>
+        <h1>Registrace týmu</h1>
+        <form id="regForm">
+            <label for="schoolSelect">Škola:</label>
+            <select id="schoolSelect" required>
+                <option value="">Vyberte školu z databáze...</option>
+            </select>
+            
+            <label for="teamName">Název týmu:</label>
+            <input type="text" id="teamName" placeholder="Zadejte název týmu" required>
+            
+            <label for="termSelect">Termín turnaje:</label>
+            <select id="termSelect">
+                <option value="1">Termín 1 (20.11.)</option>
+                <option value="2">Termín 2 (21.11.)</option>
+                <option value="3">Termín 3 (22.11.)</option>
+            </select>
+            
+            <button type="submit">Odeslat registraci</button>
+        </form>
+    </div>
+    <script type="module" src="app.ts"></script>
+</body>
+</html>

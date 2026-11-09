@@ -24,4 +24,12 @@ public class TeacherDao {
     public List<Teacher> findAll() {
         return entityManager.createQuery("SELECT t FROM Teacher t", Teacher.class).getResultList();
     }
+
+    public void update(Teacher teacher) {
+        entityManager.merge(teacher);
+    }
+
+    public void remove(Teacher teacher) {
+        entityManager.remove(teacher);
+    }
 }

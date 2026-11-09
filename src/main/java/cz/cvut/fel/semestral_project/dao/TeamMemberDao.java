@@ -24,4 +24,8 @@ public class TeamMemberDao {
     public List<TeamMember> findAll() {
         return entityManager.createQuery("SELECT m FROM TeamMember m", TeamMember.class).getResultList();
     }
+
+    public void remove(TeamMember m) {
+        entityManager.remove(m);
+    }
 }

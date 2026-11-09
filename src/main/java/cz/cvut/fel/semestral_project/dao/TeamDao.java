@@ -22,4 +22,16 @@ public class TeamDao {
     public java.util.List<Team> findAll() {
         return entityManager.createQuery("SELECT t FROM Team t", Team.class).getResultList();
     }
+
+    public void update(Team team) {
+        entityManager.merge(team);
+    }
+
+    public Team findById(Long id) {
+        return entityManager.find(Team.class, id);
+    }
+
+    public void remove(Team team) {
+        entityManager.remove(team);
+    }
 }

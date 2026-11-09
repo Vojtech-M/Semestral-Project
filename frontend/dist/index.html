@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robosoutěž - Registrace</title>
+  <script type="module" crossorigin src="/assets/index-BrA1XruQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-D2AuC6-T.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registrace týmu</h1>
+        <form id="regForm">
+            <select id="schoolSelect" required>
+                <option value="">Vyberte školu...</option>
+            </select>
+            <input type="number" id="teamCount" min="1" max="5" value="1" placeholder="Počet týmů" required>
+            <input type="text" id="teamName" placeholder="Název týmu" required>
+            <select id="termSelect">
+                <option value="1">20.11.</option>
+                <option value="2">21.11.</option>
+                <option value="3">22.11.</option>
+            </select>
+            <button type="submit">Registrovat</button>
+        </form>
+    </div>
+</body>
+</html>

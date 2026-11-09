@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Entity
 @Table(name = "tournament_terms")
-@Data
 public class TournamentTerm extends BaseEntity {
 }
 

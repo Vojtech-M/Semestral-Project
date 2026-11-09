@@ -5,10 +5,13 @@ import lombok.Data;
 import java.util.List;
 
 import cz.cvut.fel.semestral_project.model.enums.SchoolLevel;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "schools")
-@Data
 public class School extends BaseEntity {
 
     private String name;
@@ -28,4 +31,5 @@ public class School extends BaseEntity {
 
     @OneToMany(mappedBy = "school")
     private List<Team> teams;
+
 }

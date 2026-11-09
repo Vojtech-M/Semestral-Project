@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Entity
 @Table(name = "brian_sets")
-@Data
 public class BrianSet extends BaseEntity {
 }
 

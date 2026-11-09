@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import cz.cvut.fel.semestral_project.model.enums.TShirtSize;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "teams")
-@Data
 public class Team extends BaseEntity {
 
     @Column(length = 24)
@@ -35,4 +38,5 @@ public class Team extends BaseEntity {
     @OneToMany(mappedBy = "team")
     @JsonManagedReference // Prevents infinite recursion in JSON
     private List<Registration> registrations = new ArrayList<>();
+
 }

@@ -1,5 +1,8 @@
 package cz.cvut.fel.semestral_project.model.enums;
 
+/**
+ * Enum representing the size of a T-shirt.
+ */
 public enum TShirtSize {
     SHIRT_SIZE_S,
     SHIRT_SIZE_M,

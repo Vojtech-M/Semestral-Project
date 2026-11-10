@@ -5,10 +5,10 @@ export default defineConfig({
     build: {
         rollupOptions: {
             input: {
-                main: resolve(__dirname, 'index.html'),
-                form: resolve(__dirname, 'form.html'),
-                schools: resolve(__dirname, 'schools.html'),
-                registrations: resolve(__dirname, 'registrations.html'),
+                main: resolve(process.cwd(), 'index.html'),
+                form: resolve(process.cwd(), 'form.html'),
+                schools: resolve(process.cwd(), 'schools.html'),
+                registrations: resolve(process.cwd(), 'registrations.html'),
             },
         },
     },

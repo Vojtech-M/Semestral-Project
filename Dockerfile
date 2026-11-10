@@ -3,6 +3,9 @@ FROM gradle:8.5-jdk21 AS builder
 WORKDIR /app
 COPY . .
 
+# Instalace Node.js pro sestavení frontendové části
+RUN apt-get update && apt-get install -y nodejs npm
+
 # Přidání práva pro spuštění souboru gradlew (oprava chyby Permission denied)
 RUN chmod +x gradlew
 

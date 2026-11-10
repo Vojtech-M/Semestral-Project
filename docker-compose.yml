@@ -16,15 +16,5 @@ services:
     volumes:
       - h2data:/data
 
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: robosoutez_frontend
-    ports:
-      - "80:80"
-    depends_on:
-      - app
-
 volumes:
   h2data:

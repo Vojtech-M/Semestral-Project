@@ -2,27 +2,138 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robosoutěž - Registrace</title>
-  <script type="module" crossorigin src="/assets/index-BrA1XruQ.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-D2AuC6-T.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ROBOSOUTĚŽ – Přihláška a Správa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon-CPwx1K0h.ico">
+  <script type="module" crossorigin src="/assets/style-CqqmwaoU.js"></script>
+  <script type="module" crossorigin src="/assets/app-CGNzNwDg.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-x05b2rDY.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Registrace týmu</h1>
-        <form id="regForm">
-            <select id="schoolSelect" required>
-                <option value="">Vyberte školu...</option>
-            </select>
-            <input type="number" id="teamCount" min="1" max="5" value="1" placeholder="Počet týmů" required>
-            <input type="text" id="teamName" placeholder="Název týmu" required>
-            <select id="termSelect">
-                <option value="1">20.11.</option>
-                <option value="2">21.11.</option>
-                <option value="3">22.11.</option>
-            </select>
-            <button type="submit">Registrovat</button>
-        </form>
-    </div>
+    <header>
+        <div class="in">
+            <div class="brand">
+                <h1>ROBOSOUTĚŽ</h1>
+                <span>Prototyp</span>
+            </div>
+            <div class="tabs" role="tablist">
+                <button class="tab-btn active" data-target="section-form">Nová přihláška</button>
+                <button class="tab-btn" data-target="section-regs">Seznam registrací</button>
+                <button class="tab-btn" data-target="section-schools">Seznam škol</button>
+                <button class="tab-btn" data-target="section-users">Správa uživatelů</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Sekce 1: Formulář -->
+        <section id="section-form" class="app-section">
+            <div class="card">
+                <h2>Registrace týmu</h2>
+                <form id="regForm">
+                    <div class="field">
+                        <label for="schoolSelect">Škola:</label>
+                        <select id="schoolSelect" required>
+                            <option value="">Vyberte školu z databáze...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="teamName">Název týmu:</label>
+                        <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="teacherName">Jméno učitele / kontaktní osoba:</label>
+                        <input type="text" id="teacherName" placeholder="např. Jan Novák" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="teacherEmail">E-mail učitele:</label>
+                        <input type="email" id="teacherEmail" placeholder="ucitel@skola.cz" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="teacherPhone">Telefon učitele:</label>
+                        <input type="tel" id="teacherPhone" placeholder="+420 123 456 789">
+                    </div>
+                    
+                    <div class="field">
+                        <label>Členové týmu (4 členové):</label>
+                        <input type="text" id="member1" placeholder="Člen 1" required style="margin-bottom: 6px;">
+                        <input type="text" id="member2" placeholder="Člen 2" required style="margin-bottom: 6px;">
+                        <input type="text" id="member3" placeholder="Člen 3" required style="margin-bottom: 6px;">
+                        <input type="text" id="member4" placeholder="Člen 4" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="termSelect">Termín turnaje:</label>
+                        <select id="termSelect">
+                            <option value="1">Termín 1 (20.11.)</option>
+                            <option value="2">Termín 2 (21.11.)</option>
+                            <option value="3">Termín 3 (22.11.)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Odeslat registraci</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sekce 2: Seznam registrací -->
+        <section id="section-regs" class="app-section" style="display:none;">
+            <div class="card wide">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h2>Seznam registrací (/api/registrations)</h2>
+                    <a href="http://localhost:8080/api/registrations/export/excel" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem; font-size: 0.9rem;" target="_blank">Export do Excelu (.xlsx)</a>
+                </div>
+                <table id="regTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tým</th>
+                            <th>Škola</th>
+                            <th>Učitel</th>
+                            <th>Status</th>
+                            <th>Datum</th>
+                            <th>Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sekce 3: Seznam škol -->
+        <section id="section-schools" class="app-section" style="display:none;">
+            <div class="card wide">
+                <h2>Seznam škol (/api/schools)</h2>
+                <table id="schoolTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Název</th>
+                            <th>Město</th>
+                            <th>Adresa</th>
+                            <th>Web</th>
+                            <th>Schváleno</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sekce 4: Uživatelé -->
+        <section id="section-users" class="app-section" style="display:none;">
+            <div class="card">
+                <h2>Uživatelé a Učitelé</h2>
+                <p>Správa uživatelů, učitelů a administrátorů v systému Robosoutěž.</p>
+                <div class="info-box">
+                    <p>Systém využívá propojení škol, učitelů a týmů podle databázového schématu.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

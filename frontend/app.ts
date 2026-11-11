@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const member1Input = document.querySelector<HTMLInputElement>('#member1');
             const member2Input = document.querySelector<HTMLInputElement>('#member2');
             const member3Input = document.querySelector<HTMLInputElement>('#member3');
-            const member4Input = document.querySelector<HTMLInputElement>('#member4');
             const termSelect = document.querySelector<HTMLSelectElement>('#termSelect');
 
             if (!schoolSelect || !teamNameInput) return;
@@ -73,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const teamMembers = [
                 member1Input?.value.trim(),
                 member2Input?.value.trim(),
-                member3Input?.value.trim(),
-                member4Input?.value.trim()
+                member3Input?.value.trim()
             ].filter(Boolean);
 
             const data = {
@@ -182,9 +180,8 @@ async function loadRegistrations() {
                 <td><span class="badge ${r.status?.toLowerCase()}">${r.status || 'N/A'}</span></td>
                 <td>${r.registeredAt ? new Date(r.registeredAt).toLocaleString() : 'N/A'}</td>
                 <td>
-                    <button class="btn-sm btn-success" onclick="updateStatus(${r.id}, 'APPROVED')">Schválit</button>
-                    <button class="btn-sm btn-danger" onclick="updateStatus(${r.id}, 'REJECTED')">Zamítnout</button>
-                    <button class="btn-sm btn-delete" onclick="deleteRegistration(${r.id})">Smazat</button>
+                    <button class="btn-sm btn-success" onclick="updateStatus(${r.id}, 'VALID')">Schválit</button>
+                    <button class="btn-sm btn-danger" onclick="updateStatus(${r.id}, 'EXPIRED')">Zamítnout</button>
                 </td>
             `;
             regTableBody.appendChild(tr);

@@ -8,6 +8,28 @@ interface Registration {
 }
 
 // @ts-ignore
+async function updateStatus(id: number, status: string): Promise<void> {
+    try {
+        const response = await fetch(`http://localhost:8080/api/registrations/${id}/status`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Chyba při změně statusu: ${response.statusText}`);
+        }
+
+        await fetchRegistrations();
+    } catch (error) {
+        console.error('Error updating status:', error);
+        alert('Nepodařilo se změnit status registrace.');
+    }
+}
+
+// @ts-ignore
 async function fetchRegistrations(): Promise<void> {
     const tableBody = document.querySelector<HTMLTableSectionElement>('#regTable tbody');
     if (!tableBody) return;
@@ -25,7 +47,7 @@ async function fetchRegistrations(): Promise<void> {
         tableBody.innerHTML = '';
 
         if (data.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5">Zatím neexistují žádné registrace.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="6">Zatím neexistují žádné registrace.</td></tr>';
             return;
         }
 
@@ -42,6 +64,10 @@ async function fetchRegistrations(): Promise<void> {
                 <td>${escapeHtml(reg.school)}</td>
                 <td><span class="status-badge status-${reg.status.toLowerCase()}">${escapeHtml(reg.status)}</span></td>
                 <td>${formattedDate}</td>
+                <td>
+                    <button class="btn-approve" onclick="window.updateStatus(${reg.id}, 'VALID')">Schválit</button>
+                    <button class="btn-reject" onclick="window.updateStatus(${reg.id}, 'EXPIRED')">Zamítnout</button>
+                </td>
             `;
 
             tableBody.appendChild(row);
@@ -49,9 +75,12 @@ async function fetchRegistrations(): Promise<void> {
 
     } catch (error) {
         console.error('Errror fetching registrations:', error);
-        tableBody.innerHTML = '<tr><td colspan="5" class="error">Nepodařilo se načíst data z serveru.</td></tr>';
+        tableBody.innerHTML = '<tr><td colspan="6" class="error">Nepodařilo se načíst data z serveru.</td></tr>';
     }
 }
+
+// @ts-ignore
+window.updateStatus = updateStatus;
 
 // Pomocná funkce proti XSS útokům při vkládání řetězců
 function escapeHtml(text: string): string {

@@ -45,18 +45,6 @@ dependencies {
 	implementation 'org.apache.poi:poi-ooxml:5.2.5'
 }
 
-task buildFrontend(type: Exec) {
-    workingDir 'frontend'
-    commandLine 'npm', 'run', 'build'
-}
-
-task copyFrontend(type: Copy, dependsOn: buildFrontend) {
-    from 'frontend/dist'
-    into 'src/main/resources/static'
-}
-
-processResources.dependsOn copyFrontend
-
 tasks.named('test') {
 	useJUnitPlatform()
 }

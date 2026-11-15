@@ -3,6 +3,8 @@ package cz.cvut.fel.semestral_project.rest;
 import cz.cvut.fel.semestral_project.dto.TeacherDto;
 import cz.cvut.fel.semestral_project.model.Teacher;
 import cz.cvut.fel.semestral_project.service.TeacherService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/teachers")
 @CrossOrigin(origins = "http://localhost:5173")
+@Tag(name = "Učitelé", description = "Správa učitelů a garantů týmů")
 public class TeacherApiController {
 
     @Autowired
@@ -32,6 +35,7 @@ public class TeacherApiController {
     }
 
     @GetMapping
+    @Operation(summary = "Získat seznam všech učitelů")
     public ResponseEntity<List<TeacherDto>> getAllTeachers() {
         List<TeacherDto> dtos = teacherService.getAllTeachers().stream()
                 .map(this::convertToDto)
@@ -40,6 +44,7 @@ public class TeacherApiController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Získat detail učitele podle ID")
     public ResponseEntity<TeacherDto> getTeacherById(@PathVariable Long id) {
         Teacher teacher = teacherService.getTeacherById(id);
         if (teacher == null) {
@@ -49,12 +54,14 @@ public class TeacherApiController {
     }
 
     @PostMapping
+    @Operation(summary = "Vytvořit nového učitele")
     public ResponseEntity<TeacherDto> createTeacher(@RequestBody Teacher teacher) {
         Teacher created = teacherService.createTeacher(teacher);
         return ResponseEntity.status(HttpStatus.CREATED).body(convertToDto(created));
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Aktualizovat údaje učitele")
     public ResponseEntity<TeacherDto> updateTeacher(@PathVariable Long id, @RequestBody Teacher teacherDetails) {
         Teacher updated = teacherService.updateTeacher(id, teacherDetails);
         if (updated == null) {
@@ -64,6 +71,7 @@ public class TeacherApiController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Smazat učitele")
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
         teacherService.deleteTeacher(id);
         return ResponseEntity.noContent().build();

@@ -47,24 +47,40 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("🚀 Začínám generovat testovací data pro Robosoutěž...");
 
         // ==========================================
-        // 1. TOURNAMENT TERM
+        // 1. TOURNAMENT TERMS
         // ==========================================
-        TournamentTerm term = new TournamentTerm();
-        term.setName("Pražské kolo 2026");
-        tournamentTermDao.persist(term);
+        TournamentTerm term1 = new TournamentTerm();
+        term1.setName("Přihlášené týmy - 1. kolo (20.11.2026)");
+        tournamentTermDao.persist(term1);
+
+        TournamentTerm term2 = new TournamentTerm();
+        term2.setName("Přihlášené týmy - 2. kolo (21.11.2026)");
+        tournamentTermDao.persist(term2);
 
         // ==========================================
-        // 2. SCHOOL 1 & TEAM 1 & REGISTRATION 1
+        // 2. SCHOOLS
         // ==========================================
         School school1 = new School();
-        school1.setName("ČVUT FEL");
-        school1.setCity("Praha");
-        school1.setAdress("Technická 2");
-        school1.setZipCode("16627");
-        school1.setWebsite("https://fel.cvut.cz");
+        school1.setName("SPŠST Panská");
+        school1.setCity("Praha 1");
+        school1.setAdress("Panská 856/3");
+        school1.setZipCode("11000");
+        school1.setWebsite("https://www.spsst.cz");
         school1.setApproved(true);
         schoolRepository.persist(school1);
 
+        School school2 = new School();
+        school2.setName("Gymnázium Elišky Krásnohorské");
+        school2.setCity("Praha");
+        school2.setAdress("Ohradní 55/111");
+        school2.setZipCode("14000");
+        school2.setWebsite("https://www.gek.cz");
+        school2.setApproved(true);
+        schoolRepository.persist(school2);
+
+        // ==========================================
+        // 3. TEAMS & REGISTRATIONS (Term 1)
+        // ==========================================
         Team team1 = new Team();
         team1.setName("CyberBots");
         team1.setSchool(school1);
@@ -74,35 +90,22 @@ public class DataInitializer implements CommandLineRunner {
         teamMemberDao.persist(new TeamMember(team1, "Adam Novotný"));
         teamMemberDao.persist(new TeamMember(team1, "Barbora Veselá"));
         teamMemberDao.persist(new TeamMember(team1, "Cyril Dvořák"));
-        teamMemberDao.persist(new TeamMember(team1, "Eliška Malá"));
 
         Registration reg1 = new Registration();
         reg1.setTeam(team1);
-        reg1.setTournamentTerm(term);
+        reg1.setTournamentTerm(term1);
         reg1.setSchoolName(school1.getName());
         reg1.setSchoolAddress(school1.getAdress());
         reg1.setSchoolCity(school1.getCity());
         reg1.setSchoolZip(school1.getZipCode());
         reg1.setSchoolWeb(school1.getWebsite());
         reg1.setTeamName(team1.getName());
-        reg1.setTeacherName("Ing. Jan Novák, Ph.D.");
-        reg1.setTeacherEmail("jan.novak@fel.cvut.cz");
+        reg1.setTeacherName(team1.getTeacherName());
+        reg1.setTeacherEmail("jan.novak@spsst.cz");
         reg1.setTeacherPhone("+420 123 456 789");
         reg1.setStatus(RegistrationStatus.VALID);
-        reg1.setRegisteredAt(LocalDateTime.now().minusDays(2));
+        reg1.setRegisteredAt(LocalDateTime.of(2026, 11, 15, 10, 0));
         registrationDao.persist(reg1);
-
-        // ==========================================
-        // 3. SCHOOL 2 & TEAM 2 & REGISTRATION 2
-        // ==========================================
-        School school2 = new School();
-        school2.setName("Gymnázium Jana Keplera");
-        school2.setCity("Praha");
-        school2.setAdress("Parléřova 2");
-        school2.setZipCode("16900");
-        school2.setWebsite("https://www.gjk.cz");
-        school2.setApproved(true);
-        schoolRepository.persist(school2);
 
         Team team2 = new Team();
         team2.setName("KeplerRobotics");
@@ -113,23 +116,50 @@ public class DataInitializer implements CommandLineRunner {
         teamMemberDao.persist(new TeamMember(team2, "Filip Procházka"));
         teamMemberDao.persist(new TeamMember(team2, "Gabriela Kučerová"));
         teamMemberDao.persist(new TeamMember(team2, "Hana Horáková"));
-        teamMemberDao.persist(new TeamMember(team2, "Jakub Marek"));
 
         Registration reg2 = new Registration();
         reg2.setTeam(team2);
-        reg2.setTournamentTerm(term);
+        reg2.setTournamentTerm(term1);
         reg2.setSchoolName(school2.getName());
         reg2.setSchoolAddress(school2.getAdress());
         reg2.setSchoolCity(school2.getCity());
         reg2.setSchoolZip(school2.getZipCode());
         reg2.setSchoolWeb(school2.getWebsite());
         reg2.setTeamName(team2.getName());
-        reg2.setTeacherName("Mgr. Petr Svoboda");
-        reg2.setTeacherEmail("svoboda@gjk.cz");
+        reg2.setTeacherName(team2.getTeacherName());
+        reg2.setTeacherEmail("svoboda@gek.cz");
         reg2.setTeacherPhone("+420 987 654 321");
         reg2.setStatus(RegistrationStatus.AWAITING);
-        reg2.setRegisteredAt(LocalDateTime.now().minusDays(1));
+        reg2.setRegisteredAt(LocalDateTime.of(2026, 11, 16, 14, 30));
         registrationDao.persist(reg2);
+
+        // ==========================================
+        // 4. TEAMS & REGISTRATIONS (Term 2)
+        // ==========================================
+        Team team3 = new Team();
+        team3.setName("RoBobři");
+        team3.setSchool(school2);
+        team3.setTeacherName("Mgr. Petr Svoboda");
+        teamDao.persist(team3);
+
+        teamMemberDao.persist(new TeamMember(team3, "Jakub Marek"));
+        teamMemberDao.persist(new TeamMember(team3, "Lucie Veselá"));
+
+        Registration reg3 = new Registration();
+        reg3.setTeam(team3);
+        reg3.setTournamentTerm(term2);
+        reg3.setSchoolName(school2.getName());
+        reg3.setSchoolAddress(school2.getAdress());
+        reg3.setSchoolCity(school2.getCity());
+        reg3.setSchoolZip(school2.getZipCode());
+        reg3.setSchoolWeb(school2.getWebsite());
+        reg3.setTeamName(team3.getName());
+        reg3.setTeacherName(team3.getTeacherName());
+        reg3.setTeacherEmail("svoboda@gek.cz");
+        reg3.setTeacherPhone("+420 987 654 321");
+        reg3.setStatus(RegistrationStatus.VALID);
+        reg3.setRegisteredAt(LocalDateTime.of(2026, 11, 17, 9, 15));
+        registrationDao.persist(reg3);
 
         System.out.println("🎉 Všechna testovací data byla úspěšně nahrána!");
     }

@@ -25,7 +25,7 @@ interface Registration {
     registeredAt?: string;
 }
 
-const API_BASE = 'http://localhost:8080';
+const API_BASE = '';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Tab Switching

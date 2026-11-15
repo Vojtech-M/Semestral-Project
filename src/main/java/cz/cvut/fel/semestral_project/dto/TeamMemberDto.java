@@ -11,4 +11,6 @@ public class TeamMemberDto {
     private Long id;
     private Long teamId;
     private String userName;
+    private String TshirtSize;
+
 }

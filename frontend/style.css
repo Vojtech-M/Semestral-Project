@@ -226,3 +226,100 @@ th {
   background-color: var(--err);
   color: white;
 }
+
+/* Add this to the bottom of your style.css */
+
+.SectionOne,
+.SectionTwo,
+.SectionThree {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.btn-secondary {
+  background: var(--mut);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--ink);
+}
+
+.step-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Dvousloupcové rozložení formuláře a souhrnu */
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.registrationSummary {
+  position: sticky;
+  top: 20px;
+}
+
+.registrationSummary h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+.summary-item {
+  margin-bottom: 14px;
+}
+
+.summary-item:last-child {
+  margin-bottom: 0;
+}
+
+.summary-label {
+  display: block;
+  font-size: 13px;
+  color: var(--mut);
+  margin-bottom: 2px;
+}
+
+.summary-value {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.summary-sub {
+  display: block;
+  font-size: 13px;
+  color: var(--mut);
+  margin-top: 2px;
+}
+
+/* Na menších obrazovkách (mobil/tablet) pod sebe */
+@media (max-width: 768px) {
+  .form-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .registrationSummary {
+    position: static;
+  }
+}

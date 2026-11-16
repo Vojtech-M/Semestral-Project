@@ -28,7 +28,7 @@ interface Registration {
 const API_BASE = '';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Tab Switching
+    // 1. Přepínání záložek (Tab Switching)
     const tabButtons = document.querySelectorAll('.tabs button');
     const sections = document.querySelectorAll('.app-section');
 
@@ -52,12 +52,146 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadSchools();
 
+    // 2. Elementy pro vícekrokový formulář a živý souhrn
     const form = document.querySelector<HTMLFormElement>('#regForm');
+    const step1 = document.querySelector<HTMLElement>('#step1');
+    const step2 = document.querySelector<HTMLElement>('#step2');
+    const step3 = document.querySelector<HTMLElement>('#step3');
+
+    const schoolSelect = document.querySelector<HTMLSelectElement>('#schoolSelect');
+    const teamCountInput = document.querySelector<HTMLInputElement>('#teamCount');
+    const summaryText = document.querySelector<HTMLElement>('#summaryText');
+
+    const toStep2Btn = document.querySelector<HTMLButtonElement>('#toStep2Btn');
+    const backToStep1Btn = document.querySelector<HTMLButtonElement>('#backToStep1Btn');
+    const toStep3Btn = document.querySelector<HTMLButtonElement>('#toStep3Btn');
+    const backToStep2Btn = document.querySelector<HTMLButtonElement>('#backToStep2Btn');
+
+    // Funkce pro aktualizaci boční karty "Vaše přihláška"
+    function updateSummary() {
+        if (!summaryText) return;
+
+        // 1. Škola a počet týmů
+        const selectedSchool = (schoolSelect && schoolSelect.value)
+            ? schoolSelect.options[schoolSelect.selectedIndex].text
+            : '–';
+
+        const teamCount = (teamCountInput && teamCountInput.value)
+            ? teamCountInput.value
+            : '1';
+
+        // 2. Učitel
+        const teacherName = document.querySelector<HTMLInputElement>('#teacherName')?.value.trim();
+        const teacherEmail = document.querySelector<HTMLInputElement>('#teacherEmail')?.value.trim();
+        const teacherPhone = document.querySelector<HTMLInputElement>('#teacherPhone')?.value.trim();
+
+        let teacherDisplay = '–';
+        if (teacherName) {
+            teacherDisplay = teacherName;
+            if (teacherEmail) teacherDisplay += `<span class="summary-sub">${teacherEmail}</span>`;
+            if (teacherPhone) teacherDisplay += `<span class="summary-sub">${teacherPhone}</span>`;
+        }
+
+        // 3. Tým, členové a termín
+        const teamName = document.querySelector<HTMLInputElement>('#teamName')?.value.trim() || '–';
+
+        const members = [
+            document.querySelector<HTMLInputElement>('#member1')?.value.trim(),
+            document.querySelector<HTMLInputElement>('#member2')?.value.trim(),
+            document.querySelector<HTMLInputElement>('#member3')?.value.trim()
+        ].filter(Boolean);
+
+        const membersHtml = members.length > 0
+            ? `<span class="summary-sub">Členové: ${members.join(', ')}</span>`
+            : '';
+
+        const termSelect = document.querySelector<HTMLSelectElement>('#termSelect');
+        const termDisplay = (termSelect && !step3?.classList.contains('hidden'))
+            ? termSelect.options[termSelect.selectedIndex].text
+            : 'bez termínu';
+
+        summaryText.innerHTML = `
+            <div class="summary-item">
+                <span class="summary-label">Škola</span>
+                <span class="summary-value">${selectedSchool}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Počet týmů</span>
+                <span class="summary-value">${teamCount}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Učitel</span>
+                <span class="summary-value">${teacherDisplay}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Tým 1</span>
+                <span class="summary-value">${teamName}</span>
+                ${membersHtml}
+                <span class="summary-sub">${termDisplay}</span>
+            </div>
+        `;
+    }
+
+    // Živá aktualizace souhrnu při jakémkoliv psaní nebo změně výběru
+    form?.addEventListener('input', updateSummary);
+    form?.addEventListener('change', updateSummary);
+
+    // Krok 1 -> Krok 2
+    toStep2Btn?.addEventListener('click', () => {
+        if (!schoolSelect || !teamCountInput) return;
+
+        if (!schoolSelect.checkValidity()) {
+            schoolSelect.reportValidity();
+            return;
+        }
+        if (!teamCountInput.checkValidity()) {
+            teamCountInput.reportValidity();
+            return;
+        }
+
+        step1?.classList.add('hidden');
+        step2?.classList.remove('hidden');
+        updateSummary();
+    });
+
+    // Krok 2 -> Krok 1
+    backToStep1Btn?.addEventListener('click', () => {
+        step2?.classList.add('hidden');
+        step1?.classList.remove('hidden');
+        updateSummary();
+    });
+
+    // Krok 2 -> Krok 3
+    toStep3Btn?.addEventListener('click', () => {
+        const teacherName = document.querySelector<HTMLInputElement>('#teacherName');
+        const teacherEmail = document.querySelector<HTMLInputElement>('#teacherEmail');
+
+        if (teacherName && !teacherName.checkValidity()) {
+            teacherName.reportValidity();
+            return;
+        }
+        if (teacherEmail && !teacherEmail.checkValidity()) {
+            teacherEmail.reportValidity();
+            return;
+        }
+
+        step2?.classList.add('hidden');
+        step3?.classList.remove('hidden');
+        updateSummary();
+    });
+
+    // Krok 3 -> Krok 2
+    backToStep2Btn?.addEventListener('click', () => {
+        step3?.classList.add('hidden');
+        step2?.classList.remove('hidden');
+        updateSummary();
+    });
+
+    // 3. Odeslání formuláře
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const schoolSelect = document.querySelector<HTMLSelectElement>('#schoolSelect');
             const teamNameInput = document.querySelector<HTMLInputElement>('#teamName');
             const teacherNameInput = document.querySelector<HTMLInputElement>('#teacherName');
             const teacherEmailInput = document.querySelector<HTMLInputElement>('#teacherEmail');
@@ -95,7 +229,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     alert('Registrace byla úspěšně odeslána!');
                     form.reset();
+                    // Vrátit formulář zpět na Krok 1 a resetovat boční přehled
+                    step3?.classList.add('hidden');
+                    step2?.classList.add('hidden');
+                    step1?.classList.remove('hidden');
+                    updateSummary();
                 } else {
+                    const errText = await response.text();
+                    console.error('Chyba serveru:', response.status, errText);
                     alert('Chyba při registraci.');
                 }
             } catch (error) {
@@ -168,8 +309,8 @@ async function loadRegistrations() {
             const tr = document.createElement('tr');
             const teamName = r.team?.name || r.teamName || 'Neznámý tým';
             const schoolName = r.team?.school?.name || r.schoolName || 'Neznámá škola';
-            const teacherDisplay = r.teacherName 
-                ? `${r.teacherName}${r.teacherEmail ? ' (' + r.teacherEmail + ')' : ''}` 
+            const teacherDisplay = r.teacherName
+                ? `${r.teacherName}${r.teacherEmail ? ' (' + r.teacherEmail + ')' : ''}`
                 : (r.team?.teacherName || r.teacherEmail || '-');
 
             tr.innerHTML = `

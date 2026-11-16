@@ -6,9 +6,9 @@
     <title>ROBOSOUTĚŽ – Přihláška a Správa</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/assets/favicon-CPwx1K0h.ico">
-  <script type="module" crossorigin src="/assets/style-CqqmwaoU.js"></script>
-  <script type="module" crossorigin src="/assets/app-CGNzNwDg.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style-x05b2rDY.css">
+  <script type="module" crossorigin src="/assets/style-TQwKDJG-.js"></script>
+  <script type="module" crossorigin src="/assets/app-PgOAnaWu.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-WQNjxgMA.css">
 </head>
 <body>
     <header>
@@ -19,9 +19,11 @@
             </div>
             <div class="tabs" role="tablist">
                 <button class="tab-btn active" data-target="section-form">Nová přihláška</button>
+               <!--
                 <button class="tab-btn" data-target="section-regs">Seznam registrací</button>
                 <button class="tab-btn" data-target="section-schools">Seznam škol</button>
                 <button class="tab-btn" data-target="section-users">Správa uživatelů</button>
+                -->
             </div>
         </div>
     </header>
@@ -31,51 +33,82 @@
             <div class="card">
                 <h2>Registrace týmu</h2>
                 <form id="regForm">
-                    <div class="field">
-                        <label for="schoolSelect">Škola:</label>
-                        <select id="schoolSelect" required>
-                            <option value="">Vyberte školu z databáze...</option>
-                        </select>
-                    </div>
-                    
-                    <div class="field">
-                        <label for="teamName">Název týmu:</label>
-                        <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
+
+                    <div class="registrationSummary">
+                        <p>Vaše registrace:</p>
+                        <p id="summaryText">Zatím nebyla vyplněna žádná data.</p>
                     </div>
 
-                    <div class="field">
-                        <label for="teacherName">Jméno učitele / kontaktní osoba:</label>
-                        <input type="text" id="teacherName" placeholder="např. Jan Novák" required>
+                    <!-- STEP 1 -->
+                    <div class="SectionOne" id="step1">
+                        <div class="field">
+                            <label for="schoolSelect">Škola:</label>
+                            <select id="schoolSelect" required>
+                                <option value="">Vyberte školu z databáze...</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="teamCount">Počet týmů:</label>
+                            <input type="number" id="teamCount" name="teamCount" min="1" max="10" value="1" placeholder="např. 1" required>
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" id="toStep2Btn" class="btn-primary">Pokračovat</button>
+                        </div>
                     </div>
 
-                    <div class="field">
-                        <label for="teacherEmail">E-mail učitele:</label>
-                        <input type="email" id="teacherEmail" placeholder="ucitel@skola.cz" required>
+                    <!-- STEP 2 -->
+                    <div class="SectionTwo hidden" id="step2">
+                        <div class="field">
+                            <label for="teacherName">Jméno učitele / kontaktní osoba:</label>
+                            <input type="text" id="teacherName" placeholder="např. Jan Novák" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="teacherEmail">E-mail učitele:</label>
+                            <input type="email" id="teacherEmail" placeholder="ucitel@skola.cz" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="teacherPhone">Telefon učitele:</label>
+                            <input type="tel" id="teacherPhone" placeholder="+420 123 456 789">
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" id="backToStep1Btn" class="btn-secondary">Zpět</button>
+                            <button type="button" id="toStep3Btn" class="btn-primary">Pokračovat</button>
+                        </div>
                     </div>
 
-                    <div class="field">
-                        <label for="teacherPhone">Telefon učitele:</label>
-                        <input type="tel" id="teacherPhone" placeholder="+420 123 456 789">
-                    </div>
-                    
-                    <div class="field">
-                        <label>Členové týmu (4 členové):</label>
-                        <input type="text" id="member1" placeholder="Člen 1" required style="margin-bottom: 6px;">
-                        <input type="text" id="member2" placeholder="Člen 2" required style="margin-bottom: 6px;">
-                        <input type="text" id="member3" placeholder="Člen 3" required style="margin-bottom: 6px;">
-                        <input type="text" id="member4" placeholder="Člen 4" required>
+                    <!-- STEP 3 -->
+                    <div class="SectionThree hidden" id="step3">
+                        <div class="field">
+                            <div class="field">
+                                <label for="teamName">Název týmu:</label>
+                                <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
+                            </div>
+                            <label>Členové týmu</label>
+                            <input type="text" id="member1" placeholder="Člen 1" required style="margin-bottom: 6px;">
+                            <input type="text" id="member2" placeholder="Člen 2" required style="margin-bottom: 6px;">
+                            <input type="text" id="member3" placeholder="Člen 3" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="termSelect">Termín turnaje:</label>
+                            <select id="termSelect">
+                                <option value="1">Termín 1 (20.11.)</option>
+                                <option value="2">Termín 2 (21.11.)</option>
+                                <option value="3">Termín 3 (22.11.)</option>
+                            </select>
+                        </div>
+
+                        <div class="step-actions">
+                            <button type="button" id="backToStep2Btn" class="btn-secondary">Zpět</button>
+                            <button type="submit" id="submitBtn" class="btn-primary">Odeslat registraci</button>
+                        </div>
                     </div>
 
-                    <div class="field">
-                        <label for="termSelect">Termín turnaje:</label>
-                        <select id="termSelect">
-                            <option value="1">Termín 1 (20.11.)</option>
-                            <option value="2">Termín 2 (21.11.)</option>
-                            <option value="3">Termín 3 (22.11.)</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Odeslat registraci</button>
                 </form>
             </div>
         </section>

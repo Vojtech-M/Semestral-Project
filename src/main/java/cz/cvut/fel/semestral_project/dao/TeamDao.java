@@ -23,8 +23,9 @@ public class TeamDao {
         return entityManager.createQuery("SELECT t FROM Team t", Team.class).getResultList();
     }
 
-    public void update(Team team) {
+    public Team update(Team team) {
         entityManager.merge(team);
+        return team;
     }
 
     public Team findById(Long id) {

@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
-// REMOVED @Repository, MADE abstract
+
 public abstract class BaseDao<T extends BaseEntity> implements GenericDao<T> {
 
     private final Class<T> entityClass;

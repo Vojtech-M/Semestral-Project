@@ -139,36 +139,7 @@
                         <!-- STEP 3 -->
                         <!-- STEP 3 -->
                         <div class="SectionThree hidden" id="step3">
-                            <div class="field">
-                                <label for="teamName">Název týmu:</label>
-                                <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
-                            </div>
-
-                            <div class="field">
-                                <label>Členové týmu <span class="opt">(velikost trička je nepovinná)</span></label>
-                                <div class="member-row">
-                                    <input type="text" id="member1" placeholder="Člen 1" required>
-                                    <select id="shirt1" class="shirt-select"></select>
-                                </div>
-                                <div class="member-row">
-                                    <input type="text" id="member2" placeholder="Člen 2" required>
-                                    <select id="shirt2" class="shirt-select"></select>
-                                </div>
-                                <div class="member-row">
-                                    <input type="text" id="member3" placeholder="Člen 3" required>
-                                    <select id="shirt3" class="shirt-select"></select>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label for="termSelect">Termín turnaje:</label>
-                                <select id="termSelect">
-                                    <option value="1">1. kolo 24.11.2026</option>
-                                    <option value="2">2. kolo 25.11.2026</option>
-                                    <option value="3">3. kolo 26.11.2026</option>
-                                    <option value="4">4. kolo 27.11.2026</option>
-                                </select>
-                            </div>
+                            <div id="teamsContainer"></div>
 
                             <div class="step-actions">
                                 <button type="button" id="backToStep2Btn" class="btn-secondary">Zpět</button>

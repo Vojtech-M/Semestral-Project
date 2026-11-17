@@ -31,8 +31,14 @@ interface Registration {
 const API_BASE = '';
 let allSchools: School[] = [];
 let selectedSchoolObj: School | null = null;
-// Na začátek app.ts (vedle API_BASE)
 const SHIRT_SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
+
+const TERMS = [
+    { id: 1, label: '1. kolo 24.11.2026' },
+    { id: 2, label: '2. kolo 25.11.2026' },
+    { id: 3, label: '3. kolo 26.11.2026' },
+    { id: 4, label: '4. kolo 27.11.2026' }
+];
 
 // Pomocná funkce pro vyhledávání bez ohledu na diakritiku a velikost písmen
 function normalizeText(text: string): string {
@@ -70,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const teamCountInput = document.querySelector<HTMLInputElement>('#teamCount');
     const summaryText = document.querySelector<HTMLElement>('#summaryText');
+    const teamsContainer = document.querySelector<HTMLElement>('#teamsContainer');
 
     // Elementy pro vyhledávání školy a přidání nové
     const schoolSearchContainer = document.querySelector<HTMLElement>('#schoolSearchContainer');
@@ -225,20 +232,57 @@ document.addEventListener('DOMContentLoaded', () => {
     // Načtení škol při startu
     loadSchools();
 
+    // ===== Dynamické formuláře týmů (krok 3) =====
+    function teamCardHtml(i: number): string {
+        const shirtOptions = '<option value="">Bez trička</option>' +
+            SHIRT_SIZES.map(s => `<option value="${s}">${s}</option>`).join('');
 
-    function initShirtSelects() {
-        const selects = document.querySelectorAll<HTMLSelectElement>('.shirt-select');
-        selects.forEach(select => {
-            select.innerHTML = '<option value="">Bez trička</option>';
-            SHIRT_SIZES.forEach(size => {
-                const opt = document.createElement('option');
-                opt.value = size;
-                opt.textContent = size;
-                select.appendChild(opt);
-            });
-        });
+        const members = [1, 2, 3].map(n => `
+            <div class="member-row">
+                <input type="text" class="member-name" placeholder="Člen ${n}" required>
+                <select class="shirt-select">${shirtOptions}</select>
+            </div>`).join('');
+
+        const terms = TERMS.map(t => `<option value="${t.id}">${t.label}</option>`).join('');
+
+        return `
+            <div class="team-card" data-team="${i}">
+                <h4>Tým ${i + 1}</h4>
+                <div class="field">
+                    <label>Název týmu:</label>
+                    <input type="text" class="team-name" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
+                </div>
+                <div class="field">
+                    <label>Členové týmu <span class="opt">(velikost trička je nepovinná)</span></label>
+                    ${members}
+                </div>
+                <div class="field">
+                    <label>Termín turnaje:</label>
+                    <select class="term-select">${terms}</select>
+                </div>
+            </div>`;
     }
-    initShirtSelects();
+
+    function getTeamCount(): number {
+        const raw = Number(teamCountInput?.value) || 1;
+        return Math.min(Math.max(raw, 1), 10);
+    }
+
+    // Přidá/odebere karty podle počtu týmů, už vyplněné zůstanou zachované
+    function renderTeamForms() {
+        if (!teamsContainer) return;
+        const count = getTeamCount();
+
+        let current = teamsContainer.querySelectorAll('.team-card').length;
+        while (current > count) {
+            teamsContainer.lastElementChild?.remove();
+            current--;
+        }
+        while (current < count) {
+            teamsContainer.insertAdjacentHTML('beforeend', teamCardHtml(current));
+            current++;
+        }
+    }
 
     // 3. Aktualizace boční karty "Vaše přihláška"
     function updateSummary() {
@@ -258,22 +302,31 @@ document.addEventListener('DOMContentLoaded', () => {
             if (teacherPhone) teacherDisplay += `<span class="summary-sub">${teacherPhone}</span>`;
         }
 
-        const teamName = document.querySelector<HTMLInputElement>('#teamName')?.value.trim() || '–';
+        const step3Visible = !step3?.classList.contains('hidden');
+        const count = getTeamCount();
+        const cards = document.querySelectorAll<HTMLElement>('.team-card');
 
-        const members = [
-            document.querySelector<HTMLInputElement>('#member1')?.value.trim(),
-            document.querySelector<HTMLInputElement>('#member2')?.value.trim(),
-            document.querySelector<HTMLInputElement>('#member3')?.value.trim()
-        ].filter(Boolean);
+        let teamsHtml = '';
+        for (let i = 0; i < count; i++) {
+            const card = cards[i];
+            const name = card?.querySelector<HTMLInputElement>('.team-name')?.value.trim() || '–';
+            const members = card
+                ? Array.from(card.querySelectorAll<HTMLInputElement>('.member-name'))
+                    .map(m => m.value.trim()).filter(Boolean)
+                : [];
+            const termSel = card?.querySelector<HTMLSelectElement>('.term-select');
+            const term = (card && step3Visible && termSel)
+                ? termSel.options[termSel.selectedIndex].text
+                : 'bez termínu';
 
-        const membersHtml = members.length > 0
-            ? `<span class="summary-sub">Členové: ${members.join(', ')}</span>`
-            : '';
-
-        const termSelect = document.querySelector<HTMLSelectElement>('#termSelect');
-        const termDisplay = (termSelect && !step3?.classList.contains('hidden'))
-            ? termSelect.options[termSelect.selectedIndex].text
-            : 'bez termínu';
+            teamsHtml += `
+                <div class="summary-item">
+                    <span class="summary-label">Tým ${i + 1}</span>
+                    <span class="summary-value">${name}</span>
+                    ${members.length ? `<span class="summary-sub">Členové: ${members.join(', ')}</span>` : ''}
+                    <span class="summary-sub">${term}</span>
+                </div>`;
+        }
 
         summaryText.innerHTML = `
             <div class="summary-item">
@@ -288,12 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="summary-label">Učitel</span>
                 <span class="summary-value">${teacherDisplay}</span>
             </div>
-            <div class="summary-item">
-                <span class="summary-label">Tým 1</span>
-                <span class="summary-value">${teamName}</span>
-                ${membersHtml}
-                <span class="summary-sub">${termDisplay}</span>
-            </div>
+            ${teamsHtml}
         `;
     }
 
@@ -343,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         step2?.classList.add('hidden');
         step3?.classList.remove('hidden');
+        renderTeamForms();
         updateSummary();
     });
 
@@ -352,70 +401,80 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSummary();
     });
 
-    // 5. Odeslání formuláře (jednotný request pro školu z DB i novou školu)
+    // 5. Odeslání formuláře – jedna registrace za každý tým
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const teamNameInput = document.querySelector<HTMLInputElement>('#teamName');
-            const teacherNameInput = document.querySelector<HTMLInputElement>('#teacherName');
-            const teacherEmailInput = document.querySelector<HTMLInputElement>('#teacherEmail');
-            const teacherPhoneInput = document.querySelector<HTMLInputElement>('#teacherPhone');
-            const member1Input = document.querySelector<HTMLInputElement>('#member1');
-            const shirt1Select = document.querySelector<HTMLSelectElement>('#shirt1');
-            const member2Input = document.querySelector<HTMLInputElement>('#member2');
-            const shirt2Select = document.querySelector<HTMLSelectElement>('#shirt2');
-            const member3Input = document.querySelector<HTMLInputElement>('#member3');
-            const shirt3Select = document.querySelector<HTMLSelectElement>('#shirt3');
-            const termSelect = document.querySelector<HTMLSelectElement>('#termSelect');
+            const teacherName = document.querySelector<HTMLInputElement>('#teacherName')?.value.trim() || null;
+            const teacherEmail = document.querySelector<HTMLInputElement>('#teacherEmail')?.value.trim() || null;
+            const teacherPhone = document.querySelector<HTMLInputElement>('#teacherPhone')?.value.trim() || null;
 
-            if (!selectedSchoolObj || !teamNameInput) return;
+            if (!selectedSchoolObj) return;
+            const school = selectedSchoolObj;
 
-            const teamMembers = [
-                { userName: member1Input?.value.trim(), tshirtSize: shirt1Select?.value || null },
-                { userName: member2Input?.value.trim(), tshirtSize: shirt2Select?.value || null },
-                { userName: member3Input?.value.trim(), tshirtSize: shirt3Select?.value || null }
-            ].filter(m => m.userName);
+            const teams = Array.from(document.querySelectorAll<HTMLElement>('.team-card')).map(card => ({
+                teamName: card.querySelector<HTMLInputElement>('.team-name')!.value.trim(),
+                tournamentTermId: Number(card.querySelector<HTMLSelectElement>('.term-select')!.value),
+                teamMembers: Array.from(card.querySelectorAll<HTMLElement>('.member-row'))
+                    .map(row => ({
+                        userName: row.querySelector<HTMLInputElement>('.member-name')!.value.trim(),
+                        tshirtSize: row.querySelector<HTMLSelectElement>('.shirt-select')!.value || null
+                    }))
+                    .filter(m => m.userName)
+            }));
 
-            const isExistingSchool = selectedSchoolObj.id > 0;
-
-            const data = {
-                schoolId: isExistingSchool ? selectedSchoolObj.id : null,
-                schoolName: selectedSchoolObj.name,
-                schoolAddress: selectedSchoolObj.adress || selectedSchoolObj.address || null,
-                schoolCity: selectedSchoolObj.city || null,
-                schoolZip: selectedSchoolObj.zip || selectedSchoolObj.postalCode || null,
-                schoolWebsite: selectedSchoolObj.website || null,
-
-                teamName: teamNameInput.value.trim(),
-                teacherName: teacherNameInput ? teacherNameInput.value.trim() : null,
-                teacherEmail: teacherEmailInput ? teacherEmailInput.value.trim() : null,
-                teacherPhone: teacherPhoneInput ? teacherPhoneInput.value.trim() : null,
-                teamMembers: teamMembers,
-                tournamentTermId: termSelect ? Number(termSelect.value) : 1
-            };
+            let schoolId: number | null = school.id > 0 ? school.id : null;
+            let failed = 0;
 
             try {
-                const response = await fetch(`${API_BASE}/api/registrations`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+                for (const team of teams) {
+                    const data = {
+                        schoolId,
+                        schoolName: school.name,
+                        schoolAddress: school.adress || school.address || null,
+                        schoolCity: school.city || null,
+                        schoolZip: school.zip || school.postalCode || null,
+                        schoolWebsite: school.website || null,
+                        teacherName,
+                        teacherEmail,
+                        teacherPhone,
+                        ...team
+                    };
 
-                if (response.ok) {
-                    alert('Registrace byla úspěšně odeslána!');
+                    const response = await fetch(`${API_BASE}/api/registrations`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (!response.ok) {
+                        failed++;
+                        console.error('Chyba serveru:', response.status, await response.text());
+                        continue;
+                    }
+
+                    // Nová škola se vytvořila první registrací – další týmy ji mají použít z DB
+                    if (schoolId === null) {
+                        await loadSchools();
+                        const found = allSchools.find(s => normalizeText(s.name) === normalizeText(school.name));
+                        if (found) schoolId = found.id;
+                    }
+                }
+
+                if (failed === 0) {
+                    alert(`Registrace byla úspěšně odeslána (týmů: ${teams.length})!`);
                     form.reset();
                     selectedSchoolObj = null;
                     if (selectedSchoolIdInput) selectedSchoolIdInput.value = '';
+                    if (teamsContainer) teamsContainer.innerHTML = '';
                     closeNewSchoolForm();
                     step3?.classList.add('hidden');
                     step2?.classList.add('hidden');
                     step1?.classList.remove('hidden');
                     updateSummary();
                 } else {
-                    const errText = await response.text();
-                    console.error('Chyba serveru:', response.status, errText);
-                    alert('Chyba při registraci.');
+                    alert(`Některé registrace se nepodařilo odeslat (${failed} z ${teams.length}).`);
                 }
             } catch (error) {
                 console.error('Chyba sítě:', error);

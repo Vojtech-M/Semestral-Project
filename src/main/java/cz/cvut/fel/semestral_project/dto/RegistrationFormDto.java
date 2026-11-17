@@ -16,6 +16,6 @@ public class RegistrationFormDto {
     private String teacherName;
     private String teacherEmail;
     private String teacherPhone;
-    private List<String> teamMembers;
+    private List<TeamMemberDto> teamMembers;
 }
 

@@ -17,11 +17,8 @@
             </div>
             <div class="tabs" role="tablist">
                 <button class="tab-btn active" data-target="section-form">Nová přihláška</button>
-               <!--
                 <button class="tab-btn" data-target="section-regs">Seznam registrací</button>
                 <button class="tab-btn" data-target="section-schools">Seznam škol</button>
-                <button class="tab-btn" data-target="section-users">Správa uživatelů</button>
-                -->
             </div>
         </div>
     </header>
@@ -36,15 +33,77 @@
                     <form id="regForm">
 
                         <!-- STEP 1 -->
+                        <!-- STEP 1 -->
                         <div class="SectionOne" id="step1">
-                            <div class="field">
-                                <label for="schoolSelect">Škola:</label>
-                                <select id="schoolSelect" required>
-                                    <option value="">Vyberte školu z databáze...</option>
-                                </select>
+                            <h3>Ze které jste školy?</h3>
+                            <p class="subtitle">Vyberte školu ze seznamu, adresu a web už vyplňovat nemusíte.</p>
+
+                            <!-- BLOK A: Vyhledávání školy -->
+                            <div id="schoolSearchContainer" class="field">
+                                <label for="schoolSearchInput">Škola <span class="req">*</span></label>
+
+                                <div class="combobox-wrapper" id="schoolCombobox">
+                                    <div class="combobox-input-group">
+                                        <input
+                                                type="text"
+                                                id="schoolSearchInput"
+                                                placeholder="Vyberte školu ze seznamu nebo hledejte podle názvu, ulice, města"
+                                                autocomplete="off"
+                                        >
+                                        <button type="button" id="schoolDropdownToggle" class="combobox-arrow" aria-label="Rozbalit seznam">▼</button>
+                                    </div>
+                                    <!-- Skrytý input držící ID vybrané školy -->
+                                    <input type="hidden" id="selectedSchoolId" required>
+
+                                    <!-- Rozbalovací seznam výsledků -->
+                                    <div id="schoolDropdownList" class="combobox-dropdown hidden"></div>
+                                </div>
+
+                                <div class="school-helper-row">
+                                    <span id="schoolCountInfo" class="helper-text">Načítám seznam škol...</span>
+                                    <button type="button" id="openNewSchoolBtn" class="btn-link">+ Škola není v seznamu? Přidat novou</button>
+                                </div>
                             </div>
 
-                            <div class="field">
+                            <!-- BLOK B: Přidat novou školu (ve výchozím stavu skryto) -->
+                            <div id="newSchoolBox" class="new-school-card hidden">
+                                <h4>Přidat novou školu</h4>
+                                <p class="helper-text">V Praze je škol hodně, proto potřebujeme přesnou adresu. Správce školu zkontroluje, přihlásit tým můžete hned.</p>
+
+                                <div class="field">
+                                    <label for="newSchoolName">Název školy <span class="req">*</span></label>
+                                    <input type="text" id="newSchoolName" placeholder="např. Gymnázium Jana Keplera">
+                                </div>
+
+                                <div class="field">
+                                    <label for="newSchoolWeb">Webové stránky školy <span class="opt">nepovinné</span></label>
+                                    <input type="text" id="newSchoolWeb" placeholder="www.skola.cz">
+                                </div>
+
+                                <div class="field">
+                                    <label for="newSchoolAddress">Ulice a číslo popisné <span class="req">*</span></label>
+                                    <input type="text" id="newSchoolAddress" placeholder="např. Nad Štolou 1">
+                                </div>
+
+                                <div class="city-zip-row">
+                                    <div class="field">
+                                        <label for="newSchoolCity">Město <span class="req">*</span></label>
+                                        <input type="text" id="newSchoolCity" placeholder="Praha">
+                                    </div>
+                                    <div class="field">
+                                        <label for="newSchoolZip">PSČ <span class="req">*</span></label>
+                                        <input type="text" id="newSchoolZip" placeholder="170 00" maxlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="step-actions">
+                                    <button type="button" id="saveNewSchoolBtn" class="btn-primary">Použít tuto školu</button>
+                                    <button type="button" id="cancelNewSchoolBtn" class="btn-outline">Zpět na seznam</button>
+                                </div>
+                            </div>
+
+                            <!-- Počet týmů -->
+                            <div class="field" style="margin-top: 8px;">
                                 <label for="teamCount">Počet týmů:</label>
                                 <input type="number" id="teamCount" name="teamCount" min="1" max="10" value="1" placeholder="např. 1" required>
                             </div>
@@ -78,24 +137,36 @@
                         </div>
 
                         <!-- STEP 3 -->
+                        <!-- STEP 3 -->
                         <div class="SectionThree hidden" id="step3">
                             <div class="field">
-                                <div class="field">
-                                    <label for="teamName">Název týmu:</label>
-                                    <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
+                                <label for="teamName">Název týmu:</label>
+                                <input type="text" id="teamName" placeholder="Zadejte název týmu (max 24 znaků)" maxlength="24" required>
+                            </div>
+
+                            <div class="field">
+                                <label>Členové týmu <span class="opt">(velikost trička je nepovinná)</span></label>
+                                <div class="member-row">
+                                    <input type="text" id="member1" placeholder="Člen 1" required>
+                                    <select id="shirt1" class="shirt-select"></select>
                                 </div>
-                                <label>Členové týmu</label>
-                                <input type="text" id="member1" placeholder="Člen 1" required style="margin-bottom: 6px;">
-                                <input type="text" id="member2" placeholder="Člen 2" required style="margin-bottom: 6px;">
-                                <input type="text" id="member3" placeholder="Člen 3" required>
+                                <div class="member-row">
+                                    <input type="text" id="member2" placeholder="Člen 2" required>
+                                    <select id="shirt2" class="shirt-select"></select>
+                                </div>
+                                <div class="member-row">
+                                    <input type="text" id="member3" placeholder="Člen 3" required>
+                                    <select id="shirt3" class="shirt-select"></select>
+                                </div>
                             </div>
 
                             <div class="field">
                                 <label for="termSelect">Termín turnaje:</label>
                                 <select id="termSelect">
-                                    <option value="1">Termín 1 (20.11.)</option>
-                                    <option value="2">Termín 2 (21.11.)</option>
-                                    <option value="3">Termín 3 (22.11.)</option>
+                                    <option value="1">1. kolo 24.11.2026</option>
+                                    <option value="2">2. kolo 25.11.2026</option>
+                                    <option value="3">3. kolo 26.11.2026</option>
+                                    <option value="4">4. kolo 27.11.2026</option>
                                 </select>
                             </div>
 

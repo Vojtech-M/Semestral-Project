@@ -50,12 +50,20 @@ public class DataInitializer implements CommandLineRunner {
         // 1. TOURNAMENT TERMS
         // ==========================================
         TournamentTerm term1 = new TournamentTerm();
-        term1.setName("Přihlášené týmy - 1. kolo (20.11.2026)");
+        term1.setName("1. kolo 24.11.2026");
         tournamentTermDao.persist(term1);
 
         TournamentTerm term2 = new TournamentTerm();
-        term2.setName("Přihlášené týmy - 2. kolo (21.11.2026)");
+        term2.setName("2. kolo 25.11.2026");
         tournamentTermDao.persist(term2);
+
+        TournamentTerm term3 = new TournamentTerm();
+        term3.setName("3. kolo 26.11.2026");
+        tournamentTermDao.persist(term3);
+
+        TournamentTerm term4 = new TournamentTerm();
+        term4.setName("4. kolo 27.11.2026");
+        tournamentTermDao.persist(term4);
 
         // ==========================================
         // 2. SCHOOLS
@@ -87,9 +95,9 @@ public class DataInitializer implements CommandLineRunner {
         team1.setTeacherName("Ing. Jan Novák, Ph.D.");
         teamDao.persist(team1);
 
-        teamMemberDao.persist(new TeamMember(team1, "Adam Novotný"));
-        teamMemberDao.persist(new TeamMember(team1, "Barbora Veselá"));
-        teamMemberDao.persist(new TeamMember(team1, "Cyril Dvořák"));
+        teamMemberDao.persist(new TeamMember(team1, "Adam Novotný", "M"));
+        teamMemberDao.persist(new TeamMember(team1, "Barbora Veselá", "S"));
+        teamMemberDao.persist(new TeamMember(team1, "Cyril Dvořák", "L"));
 
         Registration reg1 = new Registration();
         reg1.setTeam(team1);
@@ -113,9 +121,9 @@ public class DataInitializer implements CommandLineRunner {
         team2.setTeacherName("Mgr. Petr Svoboda");
         teamDao.persist(team2);
 
-        teamMemberDao.persist(new TeamMember(team2, "Filip Procházka"));
-        teamMemberDao.persist(new TeamMember(team2, "Gabriela Kučerová"));
-        teamMemberDao.persist(new TeamMember(team2, "Hana Horáková"));
+        teamMemberDao.persist(new TeamMember(team2, "Filip Procházka", "L"));
+        teamMemberDao.persist(new TeamMember(team2, "Gabriela Kučerová", "M"));
+        teamMemberDao.persist(new TeamMember(team2, "Hana Horáková", "S"));
 
         Registration reg2 = new Registration();
         reg2.setTeam(team2);
@@ -142,8 +150,8 @@ public class DataInitializer implements CommandLineRunner {
         team3.setTeacherName("Mgr. Petr Svoboda");
         teamDao.persist(team3);
 
-        teamMemberDao.persist(new TeamMember(team3, "Jakub Marek"));
-        teamMemberDao.persist(new TeamMember(team3, "Lucie Veselá"));
+        teamMemberDao.persist(new TeamMember(team3, "Jakub Marek", "XL"));
+        teamMemberDao.persist(new TeamMember(team3, "Lucie Veselá", "M"));
 
         Registration reg3 = new Registration();
         reg3.setTeam(team3);

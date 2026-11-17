@@ -61,9 +61,9 @@ public class RegistrationService {
         teamDao.persist(team);
 
         if (dto.getTeamMembers() != null) {
-            for (String memberName : dto.getTeamMembers()) {
-                if (memberName != null && !memberName.trim().isEmpty()) {
-                    cz.cvut.fel.semestral_project.model.TeamMember member = new cz.cvut.fel.semestral_project.model.TeamMember(team, memberName.trim());
+            for (cz.cvut.fel.semestral_project.dto.TeamMemberDto memberDto : dto.getTeamMembers()) {
+                if (memberDto.getUserName() != null && !memberDto.getUserName().trim().isEmpty()) {
+                    cz.cvut.fel.semestral_project.model.TeamMember member = new cz.cvut.fel.semestral_project.model.TeamMember(team, memberDto.getUserName().trim(), memberDto.getTshirtSize());
                     teamMemberDao.persist(member);
                 }
             }

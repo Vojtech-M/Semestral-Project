@@ -50,6 +50,7 @@ public class TeamApiController {
                 md.setId(m.getId());
                 md.setTeamId(t.getId());
                 md.setUserName(m.getUserName());
+                md.setTshirtSize(m.getTshirtSize());
                 return md;
             }).collect(Collectors.toList());
             dto.setTeamMembers(memberDtos);

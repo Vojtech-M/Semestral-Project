@@ -1,4 +1,4 @@
-package cz.cvut.fel.semestral_project.dao; // Ensure correct package
+package cz.cvut.fel.semestral_project.dao;
 
 import cz.cvut.fel.semestral_project.model.TournamentTerm;
 import jakarta.persistence.EntityManager;
@@ -6,6 +6,8 @@ import jakarta.persistence.PersistenceContext;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,5 +23,13 @@ public class TournamentTermDao {
 
     public TournamentTerm find(Long id) {
         return entityManager.find(TournamentTerm.class, id);
+    }
+
+    public List<TournamentTerm> findAll() {
+        return entityManager.createQuery("SELECT t FROM TournamentTerm t", TournamentTerm.class).getResultList();
+    }
+
+    public TournamentTerm update(TournamentTerm term) {
+        return entityManager.merge(term);
     }
 }

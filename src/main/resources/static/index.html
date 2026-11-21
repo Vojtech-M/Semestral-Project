@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ROBOSOUTĚŽ – Přihláška a Správa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon-CPwx1K0h.ico">
+  <script type="module" crossorigin src="/assets/app-D5mcJi48.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/app-_wmSehGU.css">
+</head>
+<body>
+    <header>
+        <div class="in">
+            <div class="brand">
+                <h1>ROBOSOUTĚŽ</h1>
+                <span id="appTitleSubtitle">Přihláška pro střední školy</span>
+            </div>
+            <div class="tabs" role="tablist">
+                <button class="tab-btn active" data-target="section-form">Nová přihláška</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Sekce 1: Formulář -->
+        <section id="section-form" class="app-section">
+            <div class="form-layout">
+
+                <!-- LEVÝ SLOUPEC: Karta s formulářem -->
+                <div class="card form-main">
+                    <h2>Registrace týmu</h2>
+                    <form id="regForm">
+
+                        <!-- STEP 1 -->
+                        <!-- STEP 1 -->
+                        <div class="SectionOne" id="step1">
+                            <h3>Ze které jste školy?</h3>
+                            <p class="subtitle">Vyberte školu ze seznamu, adresu a web už vyplňovat nemusíte.</p>
+
+                            <!-- BLOK A: Vyhledávání školy -->
+                            <div id="schoolSearchContainer" class="field">
+                                <label for="schoolSearchInput">Škola <span class="req">*</span></label>
+
+                                <div class="combobox-wrapper" id="schoolCombobox">
+                                    <div class="combobox-input-group">
+                                        <input
+                                                type="text"
+                                                id="schoolSearchInput"
+                                                placeholder="Vyberte školu ze seznamu nebo hledejte podle názvu, ulice, města"
+                                                autocomplete="off"
+                                        >
+                                        <button type="button" id="schoolDropdownToggle" class="combobox-arrow" aria-label="Rozbalit seznam">▼</button>
+                                    </div>
+                                    <!-- Skrytý input držící ID vybrané školy -->
+                                    <input type="hidden" id="selectedSchoolId" required>
+
+                                    <!-- Rozbalovací seznam výsledků -->
+                                    <div id="schoolDropdownList" class="combobox-dropdown hidden"></div>
+                                </div>
+
+                                <div class="school-helper-row">
+                                    <span id="schoolCountInfo" class="helper-text">Načítám seznam škol...</span>
+                                    <button type="button" id="openNewSchoolBtn" class="btn-link">+ Škola není v seznamu? Přidat novou</button>
+                                </div>
+                            </div>
+
+                            <!-- BLOK B: Přidat novou školu (ve výchozím stavu skryto) -->
+                            <div id="newSchoolBox" class="new-school-card hidden">
+                                <h4>Přidat novou školu</h4>
+                                <p class="helper-text">Text</p>
+
+                                <div class="field">
+                                    <label for="newSchoolName">Název školy <span class="req">*</span></label>
+                                    <input type="text" id="newSchoolName" placeholder="např. Gymnázium Jana Keplera">
+                                </div>
+
+                                <div class="field">
+                                    <label for="newSchoolWeb">Webové stránky školy <span class="opt">nepovinné</span></label>
+                                    <input type="text" id="newSchoolWeb" placeholder="www.skola.cz">
+                                </div>
+
+                                <div class="field">
+                                    <label for="newSchoolAddress">Ulice a číslo popisné <span class="req">*</span></label>
+                                    <input type="text" id="newSchoolAddress" placeholder="např. Nad Štolou 1">
+                                </div>
+
+                                <div class="city-zip-row">
+                                    <div class="field">
+                                        <label for="newSchoolCity">Město <span class="req">*</span></label>
+                                        <input type="text" id="newSchoolCity" placeholder="Praha">
+                                    </div>
+                                    <div class="field">
+                                        <label for="newSchoolZip">PSČ <span class="req">*</span></label>
+                                        <input type="text" id="newSchoolZip" placeholder="170 00" maxlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="step-actions">
+                                    <button type="button" id="saveNewSchoolBtn" class="btn-primary">Použít tuto školu</button>
+                                    <button type="button" id="cancelNewSchoolBtn" class="btn-outline">Zpět na seznam</button>
+                                </div>
+                            </div>
+
+                            <!-- Počet týmů -->
+                            <div class="field" style="margin-top: 8px;">
+                                <label for="teamCount">Počet týmů:</label>
+                                <input type="number" id="teamCount" name="teamCount" min="1" max="10" value="1" placeholder="např. 1" required>
+                            </div>
+
+                            <div class="step-actions">
+                                <button type="button" id="toStep2Btn" class="btn-primary">Pokračovat</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2 -->
+                        <div class="SectionTwo hidden" id="step2">
+                            <div class="field">
+                                <label for="teacherName">Jméno učitele / kontaktní osoba:</label>
+                                <input type="text" id="teacherName" placeholder="např. Jan Novák" required>
+                            </div>
+
+                            <div class="field">
+                                <label for="teacherEmail">E-mail učitele:</label>
+                                <input type="email" id="teacherEmail" placeholder="ucitel@skola.cz" required>
+                            </div>
+
+                            <div class="field">
+                                <label for="teacherPhone">Telefon učitele:</label>
+                                <input type="tel" id="teacherPhone" placeholder="+420 123 456 789">
+                            </div>
+
+                            <div class="step-actions">
+                                <button type="button" id="backToStep1Btn" class="btn-secondary">Zpět</button>
+                                <button type="button" id="toStep3Btn" class="btn-primary">Pokračovat</button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3 -->
+                        <!-- STEP 3 -->
+                        <div class="SectionThree hidden" id="step3">
+                            <div id="teamsContainer"></div>
+
+                            <div class="step-actions">
+                                <button type="button" id="backToStep2Btn" class="btn-secondary">Zpět</button>
+                                <button type="submit" id="submitBtn" class="btn-primary">Odeslat registraci</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- PRAVÝ SLOUPEC: Stále viditelná karta s přehledem -->
+                <aside class="card registrationSummary">
+                    <h3>Vaše přihláška</h3>
+                    <div id="summaryText">
+                        <div class="summary-item">
+                            <span class="summary-label">Škola</span>
+                            <span class="summary-value">–</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Počet týmů</span>
+                            <span class="summary-value">1</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Učitel</span>
+                            <span class="summary-value">–</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Tým 1</span>
+                            <span class="summary-value">–</span>
+                            <span class="summary-sub">bez termínu</span>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

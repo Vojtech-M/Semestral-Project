@@ -38,4 +38,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSettings();
     loadTerms();
     loadSchools();
+    loadRegistrations();
 });

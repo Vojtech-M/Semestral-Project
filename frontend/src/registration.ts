@@ -56,6 +56,16 @@ function teamCardHtml(i: number): string {
                 <label>Termín turnaje:</label>
                 <select class="term-select">${terms}</select>
             </div>
+            
+            <div class="field">
+                <label>Zapůjčení sady Brian:</label>
+                <select class="lego-rental-select">
+                    <option value="nic">Nic</option>
+                    <option value="brian_stavebnice">Brian stavebnice</option>
+                    <option value="brian_kostka">Brian kostka</option>
+                </select>
+            </div>
+          
         </div>`;
 }
 

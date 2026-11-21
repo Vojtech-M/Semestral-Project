@@ -40,6 +40,9 @@ public class SchoolService {
             school.setZipCode(schoolDetails.getZipCode());
             school.setWebsite(schoolDetails.getWebsite());
             school.setApproved(schoolDetails.isApproved());
+            if (schoolDetails.getSchoolLevel() != null) {
+                school.setSchoolLevel(schoolDetails.getSchoolLevel());
+            }
             schoolRepository.update(school);
         }
         return school;

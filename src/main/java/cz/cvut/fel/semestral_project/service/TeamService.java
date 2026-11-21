@@ -20,14 +20,12 @@ public class TeamService {
     private final TeamMemberDao teamMemberDao;
     private final SchoolRepository schoolRepository;
 
-    // 1. Constructor injection (replaces @Autowired fields)
     public TeamService(TeamDao teamDao, TeamMemberDao teamMemberDao, SchoolRepository schoolRepository) {
         this.teamDao = teamDao;
         this.teamMemberDao = teamMemberDao;
         this.schoolRepository = schoolRepository;
     }
 
-    // 2. Spring's @Transactional(readOnly = true) optimizes database read queries
     @Transactional(readOnly = true)
     public List<Team> getAllTeams() {
         return teamDao.findAll();

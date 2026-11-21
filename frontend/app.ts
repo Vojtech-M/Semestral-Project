@@ -5,9 +5,11 @@ interface School {
     adress?: string;
     address?: string;
     zip?: string;
+    zipCode?: string;
     postalCode?: string;
     website?: string;
     approved?: boolean;
+    schoolLevel?: string; // 'PRIMARY' | 'HIGH' | 'BOTH'
 }
 
 interface Registration {
@@ -33,16 +35,150 @@ let allSchools: School[] = [];
 let selectedSchoolObj: School | null = null;
 const SHIRT_SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
 
-const TERMS = [
+// Výchozí termíny – po načtení z API se přepíšou
+let TERMS: { id: number; label: string }[] = [
     { id: 1, label: '1. kolo 24.11.2026' },
     { id: 2, label: '2. kolo 25.11.2026' },
     { id: 3, label: '3. kolo 26.11.2026' },
     { id: 4, label: '4. kolo 27.11.2026' }
 ];
 
+let systemMode = 'HIGH';
+let currentYear = new Date().getFullYear();
+
+const MODE_LABELS: Record<string, { subtitle: string; option: string }> = {
+    HIGH:    { subtitle: 'Přihláška pro střední školy', option: 'Střední školy' },
+    PRIMARY: { subtitle: 'Přihláška pro základní školy', option: 'Základní školy' }
+};
+
 // Pomocná funkce pro vyhledávání bez ohledu na diakritiku a velikost písmen
 function normalizeText(text: string): string {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+// Sjednotí různé zápisy úrovně školy na 'HIGH' / 'PRIMARY' / 'BOTH'
+function normalizeLevel(level?: string | null): string | null {
+    if (!level) return null;
+    const l = level.toUpperCase();
+    if (l.includes('BOTH')) return 'BOTH';
+    if (l.includes('PRIMARY') || l.includes('ELEMENTARY') || l.includes('ZAKLAD')) return 'PRIMARY';
+    if (l.includes('HIGH') || l.includes('SECONDARY') || l.includes('STRED')) return 'HIGH';
+    return null;
+}
+
+function schoolMatchesMode(s: School): boolean {
+    const level = normalizeLevel(s.schoolLevel);
+    const mode = normalizeLevel(systemMode);
+    return !level || level === 'BOTH' || !mode || level === mode;
+}
+
+// ===== Nastavení systému (režim, rok) =====
+
+// Propíše aktuální režim a rok do UI (žlutý podtitul + admin formulář)
+function applyModeToUi() {
+    const subtitle = document.querySelector<HTMLElement>('#appTitleSubtitle');
+    if (subtitle) {
+        subtitle.textContent = (MODE_LABELS[systemMode] || MODE_LABELS.HIGH).subtitle;
+    }
+    const modeSelect = document.querySelector<HTMLSelectElement>('#adminModeSelect');
+    if (modeSelect) modeSelect.value = systemMode;
+    const yearInput = document.querySelector<HTMLInputElement>('#adminYearInput');
+    if (yearInput) yearInput.value = String(currentYear);
+}
+
+async function loadSettings() {
+    try {
+        const res = await fetch(`${API_BASE}/api/admin/settings`);
+        if (!res.ok) throw new Error('Chyba při načítání nastavení: ' + res.status);
+        const s = await res.json();
+        if (s.activeMode) systemMode = normalizeLevel(s.activeMode) || s.activeMode;
+        if (s.currentYear) currentYear = s.currentYear;
+        applyModeToUi();
+    } catch (err) {
+        console.error('Chyba fetchování nastavení:', err);
+    }
+}
+
+async function saveSettings() {
+    const modeSelect = document.querySelector<HTMLSelectElement>('#adminModeSelect');
+    try {
+        const res = await fetch(`${API_BASE}/api/admin/settings`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                activeMode: modeSelect?.value,
+            })
+        });
+        if (!res.ok) throw new Error('Chyba ukládání: ' + res.status);
+        const s = await res.json();
+        systemMode = normalizeLevel(s.activeMode) || s.activeMode;
+        applyModeToUi();
+        alert('Nastavení bylo uloženo.');
+    } catch (err) {
+        console.error(err);
+        alert('Nastavení se nepodařilo uložit.');
+    }
+}
+
+// ===== Turnajové termíny =====
+
+async function loadTerms() {
+    try {
+        const res = await fetch(`${API_BASE}/api/admin/terms`);
+        if (!res.ok) throw new Error(String(res.status));
+        const terms: { id: number; name: string }[] = await res.json();
+        TERMS = terms.map(t => ({ id: t.id, label: t.name }));
+
+        const tbody = document.querySelector<HTMLTableSectionElement>('#adminTermsTable tbody');
+        if (tbody) {
+            tbody.innerHTML = terms.map(t => `
+                <tr>
+                    <td style="padding:0.5rem">${t.id}</td>
+                    <td style="padding:0.5rem">${t.name}</td>
+                    <td style="padding:0.5rem">
+                        <button class="btn-sm btn-danger" onclick="deleteTerm(${t.id})">Smazat</button>
+                    </td>
+                </tr>`).join('');
+        }
+    } catch (err) {
+        console.error('Chyba fetchování termínů:', err);
+    }
+}
+
+(window as any).deleteTerm = async function(id: number) {
+    if (!confirm('Smazat termín?')) return;
+    try {
+        const res = await fetch(`${API_BASE}/api/admin/terms/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            loadTerms();
+        } else {
+            alert('Termín nelze smazat.');
+        }
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+async function addTerm() {
+    const input = document.querySelector<HTMLInputElement>('#newTermNameInput');
+    const name = input?.value.trim();
+    if (!name) return;
+    try {
+        const res = await fetch(`${API_BASE}/api/admin/terms`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name })
+        });
+        if (res.ok) {
+            if (input) input.value = '';
+            loadTerms();
+        } else {
+            alert('Termín se nepodařilo přidat.');
+        }
+    } catch (e) {
+        console.error(e);
+        alert('Termín se nepodařilo přidat.');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,6 +197,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     (sec as HTMLElement).style.display = 'block';
                     if (targetId === 'section-regs') loadRegistrations();
                     if (targetId === 'section-schools') loadSchoolsTable();
+                    if (targetId === 'section-admin') {
+                        loadSettings();
+                        loadTerms();
+                    }
                 } else {
                     (sec as HTMLElement).style.display = 'none';
                 }
@@ -97,8 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const q = normalizeText(filterQuery.trim());
         const filtered = allSchools.filter(s => {
+            if (!schoolMatchesMode(s)) return false;
+
             const addr = s.adress || s.address || '';
-            const zip = s.zip || s.postalCode || '';
+            const zip = s.zipCode || s.zip || s.postalCode || '';
             const city = s.city || '';
             const fullString = normalizeText(`${s.name} ${addr} ${zip} ${city}`);
             return fullString.includes(q);
@@ -117,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 item.className = 'combobox-item';
 
                 const addr = school.adress || school.address || '';
-                const zip = school.zip || school.postalCode || '';
+                const zip = school.zipCode || school.zip || school.postalCode || '';
                 const city = school.city || '';
                 const subLine = [addr, [zip, city].filter(Boolean).join(' ')].filter(Boolean).join(', ');
 
@@ -219,7 +361,8 @@ document.addEventListener('DOMContentLoaded', () => {
             adress: addrEl.value.trim(),
             city: cityEl.value.trim(),
             zip: zipEl.value.trim(),
-            approved: false
+            approved: false,
+            schoolLevel: systemMode
         };
 
         if (selectedSchoolIdInput) selectedSchoolIdInput.value = 'new';
@@ -229,8 +372,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSummary();
     });
 
-    // Načtení škol při startu
+    // Načtení dat při startu
+    loadSettings();
+    loadTerms();
     loadSchools();
+
+    // Tlačítka v Admin Dashboardu
+    document.querySelector('#saveAdminSettingsBtn')?.addEventListener('click', saveSettings);
+    document.querySelector('#addNewTermBtn')?.addEventListener('click', addTerm);
 
     // ===== Dynamické formuláře týmů (krok 3) =====
     function teamCardHtml(i: number): string {
@@ -315,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .map(m => m.value.trim()).filter(Boolean)
                 : [];
             const termSel = card?.querySelector<HTMLSelectElement>('.term-select');
-            const term = (card && step3Visible && termSel)
+            const term = (card && step3Visible && termSel && termSel.options.length > 0)
                 ? termSel.options[termSel.selectedIndex].text
                 : 'bez termínu';
 
@@ -434,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         schoolName: school.name,
                         schoolAddress: school.adress || school.address || null,
                         schoolCity: school.city || null,
-                        schoolZip: school.zip || school.postalCode || null,
+                        schoolZip: school.zipCode || school.zip || school.postalCode || null,
                         schoolWebsite: school.website || null,
                         teacherName,
                         teacherEmail,
@@ -486,9 +635,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function updateSchoolCountText() {
     const info = document.querySelector<HTMLElement>('#schoolCountInfo');
-    if (info) {
-        info.textContent = `V seznamu je ${allSchools.length} škol. Klikněte do pole nebo na šipku.`;
-    }
+    //if (info) {
+    //    info.textContent = `V seznamu je ${allSchools.length} škol. Klikněte do pole nebo na šipku.`;
+    //}
 }
 
 async function loadSchools() {

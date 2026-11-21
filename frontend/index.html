@@ -13,12 +13,10 @@
         <div class="in">
             <div class="brand">
                 <h1>ROBOSOUTĚŽ</h1>
-                <span>Prototyp</span>
+                <span id="appTitleSubtitle">Přihláška pro střední školy</span>
             </div>
             <div class="tabs" role="tablist">
                 <button class="tab-btn active" data-target="section-form">Nová přihláška</button>
-                <button class="tab-btn" data-target="section-regs">Seznam registrací</button>
-                <button class="tab-btn" data-target="section-schools">Seznam škol</button>
             </div>
         </div>
     </header>
@@ -68,7 +66,7 @@
                             <!-- BLOK B: Přidat novou školu (ve výchozím stavu skryto) -->
                             <div id="newSchoolBox" class="new-school-card hidden">
                                 <h4>Přidat novou školu</h4>
-                                <p class="helper-text">V Praze je škol hodně, proto potřebujeme přesnou adresu. Správce školu zkontroluje, přihlásit tým můžete hned.</p>
+                                <p class="helper-text">Text</p>
 
                                 <div class="field">
                                     <label for="newSchoolName">Název školy <span class="req">*</span></label>
@@ -177,60 +175,6 @@
             </div>
         </section>
 
-        <!-- Sekce 2: Seznam registrací -->
-        <section id="section-regs" class="app-section" style="display:none;">
-            <div class="card wide">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <h2>Seznam registrací (/api/registrations)</h2>
-                    <a href="http://localhost:8080/api/registrations/export/excel" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem; font-size: 0.9rem;" target="_blank">Export do Excelu (.xlsx)</a>
-                </div>
-                <table id="regTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tým</th>
-                            <th>Škola</th>
-                            <th>Učitel</th>
-                            <th>Status</th>
-                            <th>Datum</th>
-                            <th>Akce</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Sekce 3: Seznam škol -->
-        <section id="section-schools" class="app-section" style="display:none;">
-            <div class="card wide">
-                <h2>Seznam škol (/api/schools)</h2>
-                <table id="schoolTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Název</th>
-                            <th>Město</th>
-                            <th>Adresa</th>
-                            <th>Web</th>
-                            <th>Schváleno</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Sekce 4: Uživatelé -->
-        <section id="section-users" class="app-section" style="display:none;">
-            <div class="card">
-                <h2>Uživatelé a Učitelé</h2>
-                <p>Správa uživatelů, učitelů a administrátorů v systému Robosoutěž.</p>
-                <div class="info-box">
-                    <p>Systém využívá propojení škol, učitelů a týmů podle databázového schématu.</p>
-                </div>
-            </div>
-        </section>
     </main>
     <script type="module" src="app.ts"></script>
 </body>

@@ -3,6 +3,7 @@ package cz.cvut.fel.semestral_project.config;
 import cz.cvut.fel.semestral_project.dao.*;
 import cz.cvut.fel.semestral_project.model.*;
 import cz.cvut.fel.semestral_project.model.enums.RegistrationStatus;
+import cz.cvut.fel.semestral_project.model.enums.SchoolLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,18 +23,21 @@ public class DataInitializer implements CommandLineRunner {
     private final TeamMemberDao teamMemberDao;
     private final TournamentTermDao tournamentTermDao;
     private final RegistrationDao registrationDao;
+    private final SystemSettingsDao systemSettingsDao;
 
     @Autowired
     public DataInitializer(SchoolRepository schoolRepository,
                            TeamDao teamDao,
                            TeamMemberDao teamMemberDao,
                            TournamentTermDao tournamentTermDao,
-                           RegistrationDao registrationDao) {
+                           RegistrationDao registrationDao,
+                           SystemSettingsDao systemSettingsDao) {
         this.schoolRepository = schoolRepository;
         this.teamDao = teamDao;
         this.teamMemberDao = teamMemberDao;
         this.tournamentTermDao = tournamentTermDao;
         this.registrationDao = registrationDao;
+        this.systemSettingsDao = systemSettingsDao;
     }
 
     @Override
@@ -45,6 +49,14 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         System.out.println("🚀 Začínám generovat testovací data pro Robosoutěž...");
+
+        // ==========================================
+        // 0. SYSTEM SETTINGS
+        // ==========================================
+        SystemSettings settings = new SystemSettings();
+        settings.setActiveMode("HIGH");
+        settings.setCurrentYear(2026);
+        systemSettingsDao.persist(settings);
 
         // ==========================================
         // 1. TOURNAMENT TERMS
@@ -75,6 +87,7 @@ public class DataInitializer implements CommandLineRunner {
         school1.setZipCode("11000");
         school1.setWebsite("https://www.spsst.cz");
         school1.setApproved(true);
+        school1.setSchoolLevel(SchoolLevel.HIGH);
         schoolRepository.persist(school1);
 
         School school2 = new School();
@@ -84,7 +97,18 @@ public class DataInitializer implements CommandLineRunner {
         school2.setZipCode("14000");
         school2.setWebsite("https://www.gek.cz");
         school2.setApproved(true);
+        school2.setSchoolLevel(SchoolLevel.BOTH);
         schoolRepository.persist(school2);
+
+        School school3 = new School();
+        school3.setName("Základní škola Jižní IV");
+        school3.setCity("Praha 4");
+        school3.setAdress("Jižní IV 17");
+        school3.setZipCode("14100");
+        school3.setWebsite("https://www.zsjizni.cz");
+        school3.setApproved(true);
+        school3.setSchoolLevel(SchoolLevel.PRIMARY);
+        schoolRepository.persist(school3);
 
         // ==========================================
         // 3. TEAMS & REGISTRATIONS (Term 1)

@@ -32,4 +32,9 @@ public class TournamentTermDao {
     public TournamentTerm update(TournamentTerm term) {
         return entityManager.merge(term);
     }
+
+    public void remove(TournamentTerm term) {
+        entityManager.remove(entityManager.contains(term) ? term : entityManager.merge(term));
+
+    }
 }

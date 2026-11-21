@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ROBOSOUTĚŽ – Přihláška a Správa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<header>
+    <div class="in">
+        <div class="brand">
+            <h1>ROBOSOUTĚŽ</h1>
+            <span id="appTitleSubtitle">Přihláška pro střední školy</span>
+        </div>
+        <div class="tabs" role="tablist">
+            <button class="tab-btn active" data-target="section-form">Nová přihláška</button>
+            <button class="tab-btn" data-target="section-regs">Seznam registrací</button>
+            <button class="tab-btn" data-target="section-schools">Seznam škol</button>
+            <button class="tab-btn" data-target="section-admin">Admin Dashboard</button>
+        </div>
+    </div>
+</header>
+<main>
+
+
+<!-- Sekce 2: Seznam registrací -->
+<section id="section-regs" class="app-section" style="display:none;">
+    <div class="card wide">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>Seznam registrací (/api/registrations)</h2>
+            <a href="http://localhost:8080/api/registrations/export/excel" class="btn-primary" style="text-decoration: none; padding: 0.5rem 1rem; font-size: 0.9rem;" target="_blank">Export do Excelu (.xlsx)</a>
+        </div>
+        <table id="regTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tým</th>
+                <th>Škola</th>
+                <th>Učitel</th>
+                <th>Status</th>
+                <th>Datum</th>
+                <th>Akce</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Sekce 3: Seznam škol -->
+<section id="section-schools" class="app-section" style="display:none;">
+    <div class="card wide">
+        <h2>Seznam škol (/api/schools)</h2>
+        <table id="schoolTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Název</th>
+                <th>Město</th>
+                <th>Adresa</th>
+                <th>Web</th>
+                <th>Schváleno</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Sekce 4: Uživatelé -->
+<section id="section-users" class="app-section" style="display:none;">
+    <div class="card">
+        <h2>Uživatelé a Učitelé</h2>
+        <p>Správa uživatelů, učitelů a administrátorů v systému Robosoutěž.</p>
+        <div class="info-box">
+            <p>Systém využívá propojení škol, učitelů a týmů podle databázového schématu.</p>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Sekce 5: Admin Dashboard -->
+    <section id="section-admin" class="app-section" style="display:none;">
+        <div class="card wide">
+            <h2>Admin Dashboard – Správa systému</h2>
+            <p class="subtitle">Zde můžete měnit režim soutěže (střední vs. základní školy), rok a turnajové termíny.</p>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <h3>Nastavení soutěže</h3>
+                <div style="display: flex; gap: 1.5rem; margin-top: 1rem; align-items: flex-end;">
+                    <div class="field" style="flex: 1;">
+                        <label for="adminModeSelect">Režim soutěže:</label>
+                        <select id="adminModeSelect" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #cbd5e1;">
+                            <option value="HIGH">Střední školy</option>
+                            <option value="PRIMARY">Základní školy</option>
+                        </select>
+                    </div>
+                    <div class="field" style="flex: 1;">
+                        <label for="adminYearInput">Aktuální rok:</label>
+                        <input type="number" id="adminYearInput" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #cbd5e1;" />
+                    </div>
+                    <button type="button" id="saveAdminSettingsBtn" class="btn-primary" style="height: 38px;">Uložit nastavení</button>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <h3>Turnajová kola a termíny</h3>
+                <table id="adminTermsTable" style="width: 100%; margin-top: 1rem; border-collapse: collapse;">
+                    <thead>
+                    <tr style="border-bottom: 2px solid #cbd5e1; text-align: left;">
+                        <th style="padding: 0.5rem;">ID</th>
+                        <th style="padding: 0.5rem;">Název termínu</th>
+                        <th style="padding: 0.5rem;">Akce</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <div style="margin-top: 1rem; display: flex; gap: 1rem; align-items: flex-end;">
+                    <div class="field" style="flex: 1;">
+                        <label for="newTermNameInput">Nový termín (např. 1. kolo 24.11.2026):</label>
+                        <input type="text" id="newTermNameInput" placeholder="např. 1. kolo 24.11.2026" style="width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #cbd5e1;" />
+                    </div>
+                    <button type="button" id="addNewTermBtn" class="btn-primary" style="height: 38px;">Přidat termín</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script type="module" src="app.ts"></script>
+</body>
+</html>

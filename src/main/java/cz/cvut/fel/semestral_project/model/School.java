@@ -19,7 +19,7 @@ public class School extends BaseEntity {
     private String website;
 
     @Enumerated(EnumType.STRING)
-    private SchoolLevel approvalStatus;
+    private SchoolLevel schoolLevel = SchoolLevel.BOTH;
 
     private String zipCode;
     private String adress;

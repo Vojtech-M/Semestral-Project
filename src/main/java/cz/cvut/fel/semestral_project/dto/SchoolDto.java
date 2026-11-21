@@ -16,6 +16,7 @@ public class SchoolDto {
     private String zipCode;
     private String website;
     private boolean approved;
+    private cz.cvut.fel.semestral_project.model.enums.SchoolLevel schoolLevel;
 
     // Konstruktor, který převede entitu School na bezpečné DTO
     public SchoolDto(cz.cvut.fel.semestral_project.model.School school) {
@@ -26,5 +27,6 @@ public class SchoolDto {
         this.zipCode = school.getZipCode();
         this.website = school.getWebsite();
         this.approved = school.isApproved();
+        this.schoolLevel = school.getSchoolLevel();
     }
 }
